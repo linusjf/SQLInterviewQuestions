@@ -43,3 +43,5 @@ select netflix_titles.show_id, listed_in as genre from netflix_titles where show
 select netflix_titles.show_id, x.value as genre from netflix_titles, json_each(listed_in) as x;
 
 select count(*) as no_country_count from netflix_titles where country is NULL;
+
+select *  from netflix_titles where date_added is NULL;
