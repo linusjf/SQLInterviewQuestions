@@ -8,7 +8,7 @@ CREATE TABLE netflix_titles (
     director TEXT,
     cast TEXT,
     country TEXT,
-    date_added TEXT,
+    date_added DATE,
     release_year INTEGER,
     rating TEXT,
     duration TEXT,
@@ -92,3 +92,14 @@ VALUES
     ('Movie', 'The BFG', 'Steven Spielberg', 'Mark Rylance, Ruby Barnhill', 'USA', '2016-07-01', 2016, 'PG', '1h 57min', 'Adventure, Family, Fantasy', 'A young girl named Sophie befriends a giant who is different from the other giants, who are all brutes.'),
     ('Movie', 'Indiana Jones and the Raiders of the Lost Ark', 'Steven Spielberg', 'Harrison Ford, Karen Allen', 'USA', '2017-03-20', 1981, 'PG-13', '1h 55min', 'Action, Adventure', 'An archaeologist must race against time to find the Ark of the Covenant before it falls into the hands of the Nazis.'),
     ('Movie', 'Indiana Jones and the Temple of Doom', 'Steven Spielberg', 'Harrison Ford, Kate Capshaw', 'USA', '2016-05-15', 1984, 'PG-13', '1h 59min', 'Action, Adventure', 'Indiana Jones travels to India to find a sacred stone that has been stolen.');
+
+-- Insert TV show data without show_id
+INSERT INTO netflix_titles (type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description)
+VALUES
+  ('TV Show', 'Stranger Things', 'Matt Duffer', 'Winona Ryder, David Harbour', 'USA', 'July 15, 2016', 2016, 'PG-13', '4 Seasons', 'Dramas, Horror', 'A sci-fi horror series that follows a group of kids as they battle supernatural forces in their small town.'),
+  ('TV Show', 'The Crown', 'Peter Morgan', 'Claire Foy, Matt Smith', 'UK, USA', 'November 4, 2016', 2016, 'PG-13', '4 Seasons', 'Dramas, History', 'A historical drama series that follows the reign of Queen Elizabeth II.'),
+  ('TV Show', 'Narcos', 'Chris Brancato', 'Wagner Moura, Boyd Holbrook', 'USA, Colombia', 'September 2, 2016', 2015, 'MA', '3 Seasons', 'Biographical, Dramas', 'A crime drama series that follows the rise and fall of Pablo Escobar.'),
+  ('TV Show', 'Orange is the New Black', 'Jenji Kohan', 'Taylor Schilling, Laura Prepon', 'USA', 'July 11, 2013', 2013, 'MA', '7 Seasons', 'Comedies, Dramas', 'A comedy-drama series that follows the lives of women in prison.'),
+  ('TV Show', 'Black Mirror', 'Charlie Brooker', 'Bryce Dallas Howard, Alice Eve', 'UK, USA', 'October 21, 2016', 2011, 'PG-13', '7 Seasons', 'Sci-Fi, Thrillers', 'A sci-fi anthology series that explores the dark side of technology.');
+-- Query to select TV shows
+SELECT * FROM netflix_titles WHERE type = 'TV Show';
