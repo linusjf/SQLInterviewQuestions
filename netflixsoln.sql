@@ -5,7 +5,7 @@ select ROUND(100.0 * count(CASE WHEN country IS NULL THEN 1 END) / count(*),2) A
 
 select '---INTERMEDIATE---' from netflix_titles LIMIT 1;
 
-select director, count(*) as no_of_titles, max(release_year) as latest_release_in from netflix_titles group by director order by no_of_titles desc limit 3;
+select director, count(*) as no_of_titles, max(release_year) as latest_release_in from netflix_titles where director <> '' group by director order by no_of_titles desc limit 3;
 
 WITH yearly_counts AS (
   SELECT
@@ -26,7 +26,7 @@ ROUND(100.0 * TOTAL(CASE WHEN type='TV Show' THEN count ELSE 0 END) / SUM(count)
 
 select '---ADVANCED---' from netflix_titles LIMIT 1;
 
-select date_added from netflix_titles;
+select date_added, strftime('%Y',date_added) from netflix_titles limit 5;
 
 WITH genre_months AS (
   SELECT
