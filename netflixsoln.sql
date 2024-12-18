@@ -22,3 +22,18 @@ ROUND(100.0 * TOTAL(CASE WHEN type='TV Show' THEN count ELSE 0 END) / SUM(count)
        FROM yearly_counts
        GROUP BY year
        ORDER by year;
+
+
+select '---ADVANCED---' from netflix_titles LIMIT 1;
+
+select date_added from netflix_titles;
+
+WITH genre_months AS (
+  SELECT
+  date(date_added,'start of month') as month,
+        genres.value as genre,
+  count(*) as monthly_count
+  from netflix_titles, json_each(listed_in) as genres
+  group by month, genre
+)
+select * from genre_months;
