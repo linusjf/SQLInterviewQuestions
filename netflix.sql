@@ -100,3 +100,8 @@ VALUES
   ('TV Show', 'Narcos', 'Chris Brancato', 'Wagner Moura, Boyd Holbrook', 'USA, Colombia', 'September 2, 2016', 2015, 'MA', '3 Seasons', 'Biographical, Dramas', 'A crime drama series that follows the rise and fall of Pablo Escobar.'),
   ('TV Show', 'Orange is the New Black', 'Jenji Kohan', 'Taylor Schilling, Laura Prepon', 'USA', 'July 11, 2013', 2013, 'MA', '7 Seasons', 'Comedies, Dramas', 'A comedy-drama series that follows the lives of women in prison.'),
   ('TV Show', 'Black Mirror', 'Charlie Brooker', 'Bryce Dallas Howard, Alice Eve', 'UK, USA', 'October 21, 2016', 2011, 'PG-13', '7 Seasons', 'Sci-Fi, Thrillers', 'A sci-fi anthology series that explores the dark side of technology.');
+
+update netflix_titles set listed_in = concat('[',replace(quote(listed_in),', ', ''','''),']');
+
+select netflix_titles.show_id, x.value as genre from netflix_titles, json_each(listed_in) as x;
+
