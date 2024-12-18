@@ -16,7 +16,7 @@ CREATE TABLE netflix_titles (
     description TEXT
 );
 
--- Insert 100 more records into the table
+-- Insert records into the table
 INSERT INTO netflix_titles (type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description)
 VALUES
     ('Movie', 'The Godfather', 'Francis Ford Coppola', 'Marlon Brando, Al Pacino', 'USA', '2015-01-01', 1972, 'R', '2h 55min', 'Crime, Drama', 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.'),
@@ -55,7 +55,6 @@ VALUES
     ('Movie', 'Life Is Beautiful', 'Roberto Benigni', 'Roberto Benigni, Nicoletta Braschi', NULL, '2017-12-15', 1997, 'PG-13', '1h 56min', 'Comedy, Drama, War', 'A Jewish father tries to protect his son from the horrors of the Holocaust by turning the concentration camp into a game.'),
     ('TV Show', 'Dark', 'Baran bo Odar, Jantje Friese', 'Louis Hofmann, Oliver Masucci', NULL, '2017-12-01', 2017, 'TV-MA', '3 Seasons', 'Drama, Mystery, Sci-Fi', 'A family''s search for a missing child uncovers a web of secrets and time travel in a small German town.');
 
--- Insert multiple records for the same director in random order
 INSERT INTO netflix_titles (type, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description)
 VALUES
     ('Movie', 'The Irishman', 'Martin Scorsese', 'Robert De Niro, Al Pacino', 'USA', '2019-11-27', 2019, 'R', '3h 29min', 'Crime, Drama', 'A mob hitman recalls his involvement with the powerful Bufalino crime family.'),
@@ -101,5 +100,3 @@ VALUES
   ('TV Show', 'Narcos', 'Chris Brancato', 'Wagner Moura, Boyd Holbrook', 'USA, Colombia', 'September 2, 2016', 2015, 'MA', '3 Seasons', 'Biographical, Dramas', 'A crime drama series that follows the rise and fall of Pablo Escobar.'),
   ('TV Show', 'Orange is the New Black', 'Jenji Kohan', 'Taylor Schilling, Laura Prepon', 'USA', 'July 11, 2013', 2013, 'MA', '7 Seasons', 'Comedies, Dramas', 'A comedy-drama series that follows the lives of women in prison.'),
   ('TV Show', 'Black Mirror', 'Charlie Brooker', 'Bryce Dallas Howard, Alice Eve', 'UK, USA', 'October 21, 2016', 2011, 'PG-13', '7 Seasons', 'Sci-Fi, Thrillers', 'A sci-fi anthology series that explores the dark side of technology.');
--- Query to select TV shows
-SELECT * FROM netflix_titles WHERE type = 'TV Show';
