@@ -26,8 +26,6 @@ ROUND(100.0 * TOTAL(CASE WHEN type='TV Show' THEN count ELSE 0 END) / SUM(count)
 
 select '---ADVANCED---' from netflix_titles LIMIT 1;
 
-select date_added, strftime('%Y-%m-%d',date_added), date(date_added,'start of month') from netflix_titles limit 5;
-
 WITH genre_months AS (
   SELECT
   date(date_added,'start of month') as month,
