@@ -21,3 +21,23 @@ SELECT Education,
    GROUP BY Education;
 
 .print '---ADVANCED---';
+
+WITH CityLeaveRates as (
+  SELECT City,
+ROUND(AVG(1.0 * LeaveOrNot),2) AS CityLeaveRate
+  FROM employee_information
+  GROUP BY City
+)
+SELECT PaymentTier,
+       CASE
+  WHEN ExperienceInCurrentDomain <= 3 THEN 'Low'
+  WHEN ExperienceInCurrentDomain BETWEEN 4 AND 7 THEN 'Medium'
+  ELSE 'High'
+       END AS ExperienceLevel,
+       ei.City as City,
+       clr.CityLeaveRate,
+       ROUND(SUM(1.0 * LeaveOrNot) / COUNT(*),2) AS GroupLeaveRate
+       FROM employee_information ei
+       JOIN CityLeaveRates clr USING(City)
+       GROUP BY PaymentTier, ExperienceLevel, City, CityLeaveRate
+       ORDER By PaymentTier, ExperienceLevel, City;
