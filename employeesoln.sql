@@ -1,3 +1,5 @@
+.mode column
+
 .print '---BEGINNER---';
 
 SELECT PaymentTier, COUNT(*) as employee_count from employee_information

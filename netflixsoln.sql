@@ -1,3 +1,5 @@
+.mode column
+
 .print '---BEGINNER---';
 
 select type, count(type) as count from netflix_titles group by type order by type;
