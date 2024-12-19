@@ -14,6 +14,10 @@ SELECT City,
   Order By BenchedPercentage desc
   Limit 3;
 
-
+SELECT Education,
+    ROUND(AVG(CASE WHEN JoiningYear < 2015 THEN ExperienceInCurrentDomain END), 2) as AvgExpBefore2015,
+    ROUND(AVG(CASE WHEN JoiningYear >= 2015 THEN ExperienceInCurrentDomain END),2) as AvgExpAfter2015
+   FROM employee_information
+   GROUP BY Education;
 
 .print '---ADVANCED---';
