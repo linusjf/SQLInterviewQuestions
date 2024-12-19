@@ -7,6 +7,13 @@ SELECT Gender, ROUND(AVG(age), 2) as Average_Age from employee_information group
 
 .print '---INTERMEDIATE---';
 
+SELECT City,
+       ROUND(100.0 *  TOTAL(CASE WHEN EverBenched = 'Yes' THEN 1 ELSE 0 END) / COUNT(*),2)  as BenchedPercentage
+   FROM employee_information
+  GROUP by City
+  Order By BenchedPercentage desc
+  Limit 3;
+
 
 
 .print '---ADVANCED---';
