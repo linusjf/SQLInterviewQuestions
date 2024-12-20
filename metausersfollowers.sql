@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS famous;
+
 CREATE TABLE famous (user_id INT, follower_id INT);
 
 INSERT INTO famous VALUES
