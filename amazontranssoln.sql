@@ -12,4 +12,5 @@ SELECT *,
 )
 SELECT year_month,
        ROUND(100.0 * revenue / prev_month_revenue, 2) AS pct_change
-      FROM prev_month_revenue;
+      FROM prev_month_revenue
+      WHERE pct_change IS NOT NULL;
