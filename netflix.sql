@@ -1,3 +1,5 @@
+.mode column
+
 DROP TABLE IF EXISTS netflix_titles;
 
 -- Create the table structure
@@ -16,9 +18,7 @@ CREATE TABLE netflix_titles (
     description TEXT
 );
 
-.mode csv
-
-.import --skip 1 netflix.csv netflix_titles
+.import --csv --skip 1 netflix.csv netflix_titles
 
 -- Convert listed_in contents to json array
 update netflix_titles set listed_in = concat('[',replace(quote(listed_in),', ', ''','''),']');
@@ -27,12 +27,12 @@ update netflix_titles set listed_in = concat('[',replace(quote(listed_in),', ', 
 update netflix_titles set listed_in = replace(listed_in,'''''','\''\''');
 
 -- Convert datetime field to format sqlite understands
-WITH ct(month, month_name) AS (VALUES
+WITH cte(month, month_name) AS (VALUES
   ('01', 'January'), ('02', 'February'), ('03', 'March'), ('04', 'April'), ('05', 'May'), ('06', 'June'),
   ('07', 'July'), ('08', 'August'), ('09', 'September'), ('10', 'October'), ('11', 'November'), ('12', 'December')
 )
 UPDATE netflix_titles
-SET date_added = SUBSTR(date_added, LENGTH(date_added) - 3, 4) || '-' || (SELECT c.month FROM ct c WHERE date_added LIKE '%' || c.month_name || '%' ) || '-' || printf('%02d', SUBSTR(date_added,LENGTH(date_added) - 7 , 2));
+SET date_added = SUBSTR(date_added, LENGTH(date_added) - 3, 4) || '-' || (SELECT c.month FROM cte c WHERE date_added LIKE '%' || c.month_name || '%' ) || '-' || printf('%02d', SUBSTR(date_added,LENGTH(date_added) - 7 , 2));
 
 -- Test datetime conversion
 select date_added from netflix_titles limit 15 offset 80 ;
@@ -41,10 +41,10 @@ select date_added from netflix_titles limit 15 offset 80 ;
 select netflix_titles.show_id, listed_in as genre from netflix_titles where show_id = 's35';
 
 -- Check if listed_in content is not malformed json
-select netflix_titles.show_id, x.value as genre from netflix_titles, json_each(listed_in) as x;
+select show_id, x.value as genre from netflix_titles, json_each(listed_in) as x where show_id = 's35';
 
 -- Check how many country columns are NULl
 select count(*) as no_country_count from netflix_titles where country is NULL;
 
 -- Check how many date_added columns are NULl
-select *  from netflix_titles where date_added is NULL;
+select show_id, date_added from netflix_titles where date_added is NULL;
