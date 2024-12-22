@@ -1,7 +1,9 @@
 -- Drop table if exists
 DROP TABLE IF EXISTS employee_information;
+
+
 -- Create table
-CREATE TABLE IF NOT EXISTS "employee_information"(
+CREATE TABLE IF NOT EXISTS "employee_information" (
   "Education" TEXT,
   "JoiningYear" INT,
   "City" TEXT,
@@ -10,8 +12,11 @@ CREATE TABLE IF NOT EXISTS "employee_information"(
   "Gender" TEXT,
   "EverBenched" TEXT,
   "ExperienceInCurrentDomain" INT,
-  "LeaveOrNot" INT);
+  "LeaveOrNot" INT
+);
 
+
+/* sql-formatter-disable */
 .mode csv
-
 .import --skip 1 employee.csv employee_information
+/* sql-formatter-enable */

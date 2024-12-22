@@ -1,15 +1,36 @@
-WITH distinct_users as (
-  SELECT user_id as users from famous
-  UNION
-  SELECT follower_id from famous
-),
-follower_count as (
-  select user_id as user,
-  count(follower_id) as follower_count
-  from famous
-  group by user
-)
-SELECT user,
-       ROUND(follower_count * 100.0 / (select COUNT(*) from distinct_users), 2) as fame_metric
-       from follower_count
-       order by fame_metric desc;
+WITH
+  distinct_users AS (
+    SELECT
+      user_id AS users
+    FROM
+      famous
+    UNION
+    SELECT
+      follower_id
+    FROM
+      famous
+  ),
+  follower_count AS (
+    SELECT
+      user_id AS user,
+      count(follower_id) AS follower_count
+    FROM
+      famous
+    GROUP BY
+      user
+  )
+SELECT
+  user,
+  ROUND(
+    follower_count * 100.0 / (
+      SELECT
+        COUNT(*)
+      FROM
+        distinct_users
+    ),
+    2
+  ) AS fame_metric
+FROM
+  follower_count
+ORDER BY
+  fame_metric DESC;

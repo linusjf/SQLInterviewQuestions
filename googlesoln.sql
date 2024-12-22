@@ -1,6 +1,42 @@
-with mutual_friends as (
-select friend_id from friends where user_id= (select USER_ID from users where user_name= 'Karl')
-intersect
-select friend_id from friends where user_id= (select USER_ID from users where user_name= 'Hans')
-)
-select user_id,user_name from users where user_id in (select friend_id from mutual_friends);
+WITH
+  mutual_friends AS (
+    SELECT
+      friend_id
+    FROM
+      friends
+    WHERE
+      user_id = (
+        SELECT
+          USER_ID
+        FROM
+          users
+        WHERE
+          user_name = 'Karl'
+      )
+    INTERSECT
+    SELECT
+      friend_id
+    FROM
+      friends
+    WHERE
+      user_id = (
+        SELECT
+          USER_ID
+        FROM
+          users
+        WHERE
+          user_name = 'Hans'
+      )
+  )
+SELECT
+  user_id,
+  user_name
+FROM
+  users
+WHERE
+  user_id IN (
+    SELECT
+      friend_id
+    FROM
+      mutual_friends
+  );

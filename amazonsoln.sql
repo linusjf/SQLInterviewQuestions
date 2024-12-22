@@ -3,7 +3,12 @@ WITH
   monthly_revenue AS (
     SELECT
       STRFTIME('%Y-%m', created_at) AS year_month,
-      SUM(CASE WHEN purchase_amt > 0 THEN purchase_amt ELSE 0 END) AS revenue
+      SUM(
+        CASE
+          WHEN purchase_amt > 0 THEN purchase_amt
+          ELSE 0
+        END
+      ) AS revenue
     FROM
       amazon_purchases
     GROUP BY
@@ -13,11 +18,15 @@ WITH
   rolling_average AS (
     SELECT
       year_month,
-      AVG(revenue) OVER (ORDER BY year_month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS rolling_avg
+      AVG(revenue) OVER (
+        ORDER BY
+          year_month ROWS BETWEEN 2 PRECEDING
+          AND CURRENT ROW
+      ) AS rolling_avg
     FROM
       monthly_revenue
   )
--- Select and order results
+  -- Select and order results
 SELECT
   year_month,
   ROUND(rolling_avg, 2) AS rolling_avg
