@@ -11,7 +11,6 @@ FROM
 GROUP BY
   PaymentTier;
 
-
 SELECT
   Gender,
   ROUND(AVG(age), 2) AS Average_Age
@@ -19,7 +18,6 @@ FROM
   employee_information
 GROUP BY
   Gender;
-
 
 /* sql-formatter-disable */
 .mode column
@@ -45,7 +43,6 @@ ORDER BY
 LIMIT
   3;
 
-
 SELECT
   Education,
   ROUND(
@@ -68,7 +65,6 @@ FROM
   employee_information
 GROUP BY
   Education;
-
 
 /* sql-formatter-disable */
 .mode column

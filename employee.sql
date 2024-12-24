@@ -1,7 +1,6 @@
 -- Drop table if exists
 DROP TABLE IF EXISTS employee_information;
 
-
 -- Create table
 CREATE TABLE IF NOT EXISTS "employee_information" (
   "Education" TEXT,
@@ -14,7 +13,6 @@ CREATE TABLE IF NOT EXISTS "employee_information" (
   "ExperienceInCurrentDomain" INT,
   "LeaveOrNot" INT
 );
-
 
 /* sql-formatter-disable */
 .mode csv

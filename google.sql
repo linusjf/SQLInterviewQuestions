@@ -1,11 +1,8 @@
 DROP TABLE IF EXISTS friends;
 
-
 DROP TABLE IF EXISTS users;
 
-
 CREATE TABLE users (user_id INT, user_name varchar(30));
-
 
 INSERT INTO
   users
@@ -21,9 +18,7 @@ VALUES
   (9, 'Anna'),
   (10, 'John');
 
-
 CREATE TABLE friends (user_id INT, friend_id INT);
-
 
 INSERT INTO
   friends

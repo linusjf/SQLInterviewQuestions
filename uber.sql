@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS uber_request_logs;
 
-
 CREATE TABLE uber_request_logs (
   request_id int,
   request_date datetime,
@@ -9,7 +8,6 @@ CREATE TABLE uber_request_logs (
   monetary_cost float,
   driver_to_client_distance float
 );
-
 
 INSERT INTO
   uber_request_logs

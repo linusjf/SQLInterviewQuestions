@@ -1,13 +1,11 @@
 DROP TABLE IF EXISTS sf_transactions;
 
-
 CREATE TABLE sf_transactions (
   id INT,
   created_at datetime,
   value INT,
   purchase_id INT
 );
-
 
 INSERT INTO
   sf_transactions

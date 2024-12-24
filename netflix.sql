@@ -3,7 +3,6 @@
 /* sql-formatter-enable */
 DROP TABLE IF EXISTS netflix_titles;
 
-
 -- Create the table structure
 CREATE TABLE netflix_titles (
   show_id TEXT,
@@ -20,7 +19,6 @@ CREATE TABLE netflix_titles (
   description TEXT
 );
 
-
 /* sql-formatter-disable */
 .import --csv --skip 1 netflix.csv netflix_titles
 /* sql-formatter-enable */
@@ -33,12 +31,10 @@ SET
     ']'
   );
 
-
 -- Escape listed_in contents for json format
 UPDATE netflix_titles
 SET
   listed_in = replace(listed_in, '''''', '\''\''');
-
 
 -- Convert datetime field to format sqlite understands
 WITH
@@ -71,7 +67,6 @@ SET
     SUBSTR(date_added, LENGTH(date_added) - 7, 2)
   );
 
-
 -- Test datetime conversion
 SELECT
   date_added
@@ -82,7 +77,6 @@ LIMIT
 OFFSET
   80;
 
-
 -- Check if listed_in content is double quoted
 SELECT
   netflix_titles.show_id,
@@ -91,7 +85,6 @@ FROM
   netflix_titles
 WHERE
   show_id = 's35';
-
 
 -- Check if listed_in content is not malformed json
 SELECT
@@ -103,7 +96,6 @@ FROM
 WHERE
   show_id = 's35';
 
-
 -- Check how many country columns are NULl
 SELECT
   count(*) AS no_country_count
@@ -111,7 +103,6 @@ FROM
   netflix_titles
 WHERE
   country IS NULL;
-
 
 -- Check how many date_added columns are NULl
 SELECT

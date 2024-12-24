@@ -1,12 +1,10 @@
 DROP TABLE IF EXISTS amazon_purchases;
 
-
 CREATE TABLE amazon_purchases (
   created_at DATETIME,
   purchase_amt BIGINT,
   user_id BIGINT
 );
-
 
 INSERT INTO
   amazon_purchases (created_at, purchase_amt, user_id)

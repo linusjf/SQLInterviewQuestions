@@ -14,7 +14,6 @@ GROUP BY
 ORDER BY
   type;
 
-
 SELECT
   ROUND(
     100.0 * count(
@@ -26,7 +25,6 @@ SELECT
   ) AS pct_wo_country
 FROM
   netflix_titles;
-
 
 /* sql-formatter-disable */
 .print '---INTERMEDIATE---';
@@ -45,7 +43,6 @@ ORDER BY
   no_of_titles DESC
 LIMIT
   3;
-
 
 WITH
   yearly_counts AS (
@@ -87,7 +84,6 @@ GROUP BY
   year
 ORDER BY
   year;
-
 
 /* sql-formatter-disable */
 .print '---ADVANCED---';
