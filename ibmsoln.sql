@@ -6,7 +6,8 @@ WITH
     FROM
       user_purchases
     WHERE
-      day_name = 'Friday'
+      day_name = 'Friday' and
+      CAST(strftime('%m', date) as INT) in (1,2,3)
   )
 SELECT
   week_of_year,
