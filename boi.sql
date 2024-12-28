@@ -40,11 +40,11 @@ SELECT
 FROM
   boi_transactions
 WHERE
-  strftime('%m', time_stamp) = '12'
-  AND strftime('%Y', time_stamp) = '2022'
+  cast(strftime('%m', time_stamp) AS int) = 12
+  AND cast(strftime('%Y', time_stamp) AS int) = 2022
   AND (
-    strftime('%d', time_stamp) IN ('25', '26')
-    OR strftime('%w', time_stamp) IN ('0', '6')
-    OR cast(time_stamp AS time) < '09:00:00'
-    OR cast(time_stamp AS time) > '16:00:00'
+    cAst(strftime('%d', time_stamp) AS int) IN (25, 26)
+    OR cast(strftime('%w', time_stamp) AS int) IN (0, 6)
+    OR cast(strftime('%H%M%S', time_stamp) AS int) < 90000
+    OR cast(strftime('%H%M%S', time_stamp) AS int) > 160000
   );
