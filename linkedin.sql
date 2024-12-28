@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS db_employee;
+
 DROP TABLE IF EXISTS db_dept;
 
 CREATE TABLE db_dept (
@@ -20,7 +21,7 @@ CREATE TABLE db_employee (
   last_name VARCHAR(50),
   salary INT,
   department_id INT,
-  FOREIGN KEY (department_id) REFERENCES db_dept(id)
+  FOREIGN KEY (department_id) REFERENCES db_dept (id)
 );
 
 INSERT INTO
@@ -37,6 +38,18 @@ VALUES
   (10333, 'Jennifer', 'Blankenship', 13433, 4),
   (10339, 'Robert', 'Mills', 13188, 1);
 
-select ABS(MAX(CASE WHEN department = 'marketing' then salary end) - MAX(Case when department = 'engineering' then salary end)) as salary_difference
-from db_employee
-join db_dept on db_dept.id = db_employee.department_id;
+SELECT
+  ABS(
+    MAX(
+      CASE
+        WHEN department = 'marketing' THEN salary
+      END
+    ) - MAX(
+      CASE
+        WHEN department = 'engineering' THEN salary
+      END
+    )
+  ) AS salary_difference
+FROM
+  db_employee
+  JOIN db_dept ON db_dept.id = db_employee.department_id;
