@@ -59,4 +59,4 @@ GROUP BY
 HAVING
   no_of_orders > 0
 ORDER BY
-  user_id;
+  session_date;
