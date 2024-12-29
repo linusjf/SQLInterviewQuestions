@@ -104,7 +104,7 @@ VALUES
 SELECT
   client_id,
   strftime('%Y-%m', time_id) AS year_month,
-  count(distinct user_id) AS no_of_users
+  count(DISTINCT user_id) AS no_of_users
 FROM
   fact_events
 GROUP BY
