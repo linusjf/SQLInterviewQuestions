@@ -178,15 +178,34 @@ WITH
     ORDER BY
       department
   ),
-manager_salary as (
-  select e.department as department, e.id as id, e.salary as salary, m.salary as mgr_salary
-  from employee_o e
-  left join employee_o m on e.manager_id = m.id
-  group by e.department, e.id
-  order by e.department, e.id
-)
-select department, id, salary, mgr_salary, avg_dept_salary
-  from manager_salary
-  join avg_salary using(department)
-  group by department, id
-  order by department, id;
+  manager_salary AS (
+    SELECT
+      e.department AS department,
+      e.id AS id,
+      e.salary AS salary,
+      m.salary AS mgr_salary
+    FROM
+      employee_o e
+      LEFT JOIN employee_o m ON e.manager_id = m.id
+    GROUP BY
+      e.department,
+      e.id
+    ORDER BY
+      e.department,
+      e.id
+  )
+SELECT
+  department,
+  id,
+  salary,
+  mgr_salary,
+  avg_dept_salary
+FROM
+  manager_salary
+  JOIN avg_salary USING (department)
+GROUP BY
+  department,
+  id
+ORDER BY
+  department,
+  id;
