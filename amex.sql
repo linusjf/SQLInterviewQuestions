@@ -107,7 +107,7 @@ WITH
       first_name,
       last_name,
       sum(total_order_cost) AS total_transaction_amt,
-      rank() OVER (
+      dense_rank() OVER (
         ORDER BY
           sum(total_order_cost) DESC
       ) AS rank
@@ -127,3 +127,22 @@ FROM
   ranks
 WHERE
   rank = 3;
+
+
+SELECT
+      id,
+      first_name,
+      last_name,
+      sum(total_order_cost) AS total_transaction_amt,
+      dense_rank() OVER (
+        ORDER BY
+          sum(total_order_cost) DESC
+      ) AS rank
+    FROM
+      customers
+      JOIN card_orders ON customers.id = card_orders.cust_id
+    GROUP BY
+      id
+    ORDER BY
+      rank
+    limit 1 offset 2;
