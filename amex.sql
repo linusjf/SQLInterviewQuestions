@@ -128,21 +128,23 @@ FROM
 WHERE
   rank = 3;
 
-
 SELECT
-      id,
-      first_name,
-      last_name,
-      sum(total_order_cost) AS total_transaction_amt,
-      dense_rank() OVER (
-        ORDER BY
-          sum(total_order_cost) DESC
-      ) AS rank
-    FROM
-      customers
-      JOIN card_orders ON customers.id = card_orders.cust_id
-    GROUP BY
-      id
+  id,
+  first_name,
+  last_name,
+  sum(total_order_cost) AS total_transaction_amt,
+  dense_rank() OVER (
     ORDER BY
-      rank
-    limit 1 offset 2;
+      sum(total_order_cost) DESC
+  ) AS rank
+FROM
+  customers
+  JOIN card_orders ON customers.id = card_orders.cust_id
+GROUP BY
+  id
+ORDER BY
+  rank
+LIMIT
+  1
+OFFSET
+  2;
