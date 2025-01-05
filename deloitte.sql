@@ -41,3 +41,96 @@ VALUES
   (12, '2024-11-17 15:15'),
   (13, '2024-11-17 20:15'),
   (14, '2024-11-17 20:15');
+
+/* In the case where both trains have to be on the platform at the same time if their arrival and departure times match */
+WITH
+  TrainEvents AS (
+    SELECT
+      arrival_time AS event_time,
+      1 AS event_type
+    FROM
+      train_arrivals
+    UNION ALL
+    SELECT
+      departure_time AS event_time,
+      -1 AS event_type
+    FROM
+      train_departures
+    ORDER BY
+      event_time,
+      event_type DESC
+  ),
+  platforms AS (
+    SELECT
+      event_time,
+      sum(event_type) OVER (
+        ORDER BY
+          event_time ASC,
+          event_type DESC
+      ) AS platforms_needed
+    FROM
+      TrainEvents
+  )
+SELECT
+  max(platforms_needed) AS platforms_needed
+FROM
+  platforms;
+
+/* In the case where both trains do not have to be on the platform at the same time if their arrival and departure times match */
+WITH
+  TrainEvents AS (
+    SELECT
+      arrival_time AS event_time,
+      1 AS event_type
+    FROM
+      train_arrivals
+    UNION ALL
+    SELECT
+      departure_time AS event_time,
+      -1 AS event_type
+    FROM
+      train_departures
+    ORDER BY
+      event_time,
+      event_type
+  ),
+  platforms AS (
+    SELECT
+      event_time,
+      sum(event_type) OVER (
+        ORDER BY
+          event_time ASC,
+          event_type
+      ) AS platforms_needed
+    FROM
+      TrainEvents
+  )
+SELECT
+  max(platforms_needed) AS platforms_needed
+FROM
+  platforms;
+
+WITH
+  train_schedule AS (
+    SELECT
+      a.train_id,
+      a.arrival_time,
+      d.departure_time
+    FROM
+      train_arrivals a
+      JOIN train_departures d ON a.train_id = d.train_id
+  )
+SELECT
+  MAX(overlapping_trains) AS min_platforms_required
+FROM
+  (
+    SELECT
+      t1.train_id,
+      COUNT(*) AS overlapping_trains
+    FROM
+      train_schedule t1
+      JOIN train_schedule t2 ON t1.arrival_time <= t2.departure_time
+      AND t1.departure_time >= t2.arrival_time
+    GROUP BY
+      t1.train_id
+  ) overlapping_counts;
