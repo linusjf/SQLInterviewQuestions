@@ -1,3 +1,5 @@
+Source: <https://www.linkedin.com/posts/im-nsk_sql-activity-7266646786230935552-4L-V>
+
 ## Google(Hard Level)
 
 Calculate the average session distance traveled by Google Fit users using GPS data for two scenarios:
@@ -6,6 +8,8 @@ Calculate the average session distance traveled by Google Fit users using GPS da
 For each session, use the distance between the highest and lowest step IDs, and ignore sessions with only one step. Calculate and output the average distance for both scenarios and the difference between them.
 
 ## Formulas:
+
+<https://www.movable-type.co.uk/scripts/latlong.html>
 
 1. Curved Earth: d=6371×arccos(sin(ϕ1)×sin(ϕ2)+cos(ϕ1)×cos(ϕ2)×cos(λ2−λ1))
 2. Flat Surface: d=111×(lat2−lat1)2+(lon2−lon1)2

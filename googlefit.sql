@@ -89,7 +89,7 @@ WITH
       session_id,
       day,
       6371.0 * acos(
-        sin(min_lat) * sin(max_lat) + cos(min_lat) * cos(max_lat) * cos(max_long - min_long)
+        sin(radians(min_lat)) * sin(radians(max_lat)) + cos(radians(min_lat)) * cos(radians(max_lat)) * cos(radians(max_long) - radians(min_long))
       ) AS curved_distance,
       sqrt(
         power(max_lat - min_lat, 2) + power(max_long - min_long, 2)
