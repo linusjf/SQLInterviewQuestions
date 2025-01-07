@@ -1,3 +1,5 @@
+Source: <https://www.linkedin.com/posts/im-nsk_sql-activity-7267372180005412864-D34->
+
 ## Twitter(Hard Level)
 
 Find the top three distinct salaries for each department. Output the department name and the top 3 distinct salaries by each department. Order your results alphabetically by department and then by highest salary to lowest.
