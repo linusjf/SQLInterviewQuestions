@@ -256,3 +256,25 @@ VALUES
     NULL,
     NULL
   );
+
+WITH
+  rankings AS (
+    SELECT
+      department,
+      salary,
+      dense_rank() OVER (
+        PARTITION BY
+          department
+        ORDER BY
+          salary DESC
+      ) AS salary_rank
+    FROM
+      employees
+  )
+SELECT DISTINCT
+  department,
+  salary
+FROM
+  rankings
+WHERE
+  salary_rank <= 3;
