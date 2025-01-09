@@ -102,28 +102,16 @@ VALUES
   );
 
 WITH
-  select_distinct AS (
-    SELECT DISTINCT
+  count_users AS (
+    SELECT
       customer_id,
-      user_id,
-      client_id
+      count(DISTINCT user_id) AS users
     FROM
       fact_events
     WHERE
       client_id = 'desktop'
     GROUP BY
       customer_id
-  ),
-  count_users AS (
-    SELECT
-      customer_id,
-      count(user_id) AS users
-    FROM
-      select_distinct
-    GROUP BY
-      customer_id
-    ORDER BY
-      users
   )
 SELECT
   customer_id,
