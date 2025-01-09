@@ -3,9 +3,9 @@ require() {
   hash "$@" || exit 127
 }
 require sqlfluff
-sqlfluff fix --dialect sqlite --ignore parsing -- *.sql
+sqlfluff fix --dialect sqlite -- *.sql
 rm -f lint.out
-sqlfluff lint --dialect sqlite --ignore parsing -- *.sql &> lint.out
+sqlfluff lint --dialect sqlite -- *.sql &> lint.out
 declare -i exitcode=$?
 if [[ $exitcode != 0 ]]; then
   echo "Errors found. Check lint.out"

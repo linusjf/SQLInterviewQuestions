@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS "employee_information" (
 );
 
 /* sql-formatter-disable */
-.mode csv
-
+.mode csv --noqa
+--noqa: disable=all
 .import --skip 1 employee.csv employee_information
-
 /* sql-formatter-enable */

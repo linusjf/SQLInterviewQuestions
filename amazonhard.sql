@@ -256,6 +256,7 @@ VALUES
     'Black'
   );
 
+--noqa: disable=all
 WITH
   exclude_products AS (
     SELECT
@@ -293,6 +294,7 @@ FROM
   JOIN innerwear_amazon_com iac ON e.product_name = iac.product_name
   AND e.mrp = iac.mrp;
 
+--noqa: enable=all
 SELECT
   iac.product_name,
   iac.brand_name,

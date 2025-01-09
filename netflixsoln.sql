@@ -1,7 +1,9 @@
 /* sql-formatter-disable */
+--noqa: disable=all
 .mode column
 
 .print '---BEGINNER---';
+--noqa: enable=all
 
 /* sql-formatter-enable */
 SELECT
@@ -27,7 +29,9 @@ FROM
   netflix_titles;
 
 /* sql-formatter-disable */
+--noqa: disable=all
 .print '---INTERMEDIATE---';
+--noqa: enable=all
 /* sql-formatter-enable */
 SELECT
   director,
@@ -86,7 +90,9 @@ ORDER BY
   year;
 
 /* sql-formatter-disable */
+--noqa: disable=all
 .print '---ADVANCED---';
+--noqa: enable=all
 /* sql-formatter-enable */
 WITH
   genre_months AS (
