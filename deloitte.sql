@@ -127,7 +127,7 @@ SELECT MAX(overlapping_trains) AS min_platforms_required
 FROM
   (
     SELECT
-     schedule.train_id,
+      schedule.train_id,
       COUNT(*) AS overlapping_trains
     FROM
       train_schedule AS schedule

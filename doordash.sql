@@ -53,12 +53,12 @@ VALUES
   (4, 'Junior Engineer', '2018-04-30'),
   (5, 'Senior Salesperson', '2021-01-15');
 
-SELECT worker_title AS title
+SELECT title.worker_title AS title
 FROM
   worker
   INNER JOIN title ON worker.worker_id = title.worker_ref_id
 WHERE
-  salary = (
+  worker.salary = (
     SELECT MAX(salary)
     FROM
       worker

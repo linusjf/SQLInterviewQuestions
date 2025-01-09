@@ -129,9 +129,9 @@ WHERE
   rank = 3;
 
 SELECT
-      customers.id,
-      customers.first_name,
-      customers.last_name,
+  customers.id,
+  customers.first_name,
+  customers.last_name,
   SUM(card_orders.total_order_cost) AS total_transaction_amt,
   DENSE_RANK() OVER (
     ORDER BY
