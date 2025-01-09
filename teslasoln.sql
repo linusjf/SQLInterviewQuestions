@@ -2,13 +2,13 @@ WITH
   year_launches AS (
     SELECT
       company_name,
-      sum(
+      SUM(
         CASE
           WHEN year = 2019 THEN 1
           ELSE 0
         END
       ) AS launches_19,
-      sum(
+      SUM(
         CASE
           WHEN year = 2020 THEN 1
           ELSE 0

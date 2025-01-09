@@ -1,9 +1,9 @@
 WITH
   monthly_aggregate AS (
     SELECT
-      strftime('%Y-%m', request_date) AS year_month,
-      sum(distance_to_travel) AS monthly_distance,
-      sum(monetary_cost) AS monthly_cost
+      STRFTIME('%Y-%m', request_date) AS year_month,
+      SUM(distance_to_travel) AS monthly_distance,
+      SUM(monetary_cost) AS monthly_cost
     FROM
       uber_request_logs
     GROUP BY
@@ -23,7 +23,7 @@ WITH
   naive_forecast AS (
     SELECT
       *,
-      lag(dist_per_dollar) OVER (
+      LAG(dist_per_dollar) OVER (
         ORDER BY
           year_month
       ) AS forecast_value
@@ -31,8 +31,8 @@ WITH
       distance_per_dollar
   )
 SELECT
-  round(
-    sqrt(avg(power(dist_per_dollar - forecast_value, 2))),
+  ROUND(
+    SQRT(AVG(POWER(dist_per_dollar - forecast_value, 2))),
     2
   ) AS rmse
 FROM

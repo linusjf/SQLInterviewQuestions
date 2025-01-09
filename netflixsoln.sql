@@ -6,7 +6,7 @@
 /* sql-formatter-enable */
 SELECT
   type,
-  count(type) AS count
+  COUNT(type) AS count
 FROM
   netflix_titles
 GROUP BY
@@ -16,11 +16,11 @@ ORDER BY
 
 SELECT
   ROUND(
-    100.0 * count(
+    100.0 * COUNT(
       CASE
         WHEN country IS NULL THEN 1
       END
-    ) / count(*),
+    ) / COUNT(*),
     2
   ) AS pct_wo_country
 FROM
@@ -31,8 +31,8 @@ FROM
 /* sql-formatter-enable */
 SELECT
   director,
-  count(*) AS no_of_titles,
-  max(release_year) AS latest_release_in
+  COUNT(*) AS no_of_titles,
+  MAX(release_year) AS latest_release_in
 FROM
   netflix_titles
 WHERE
@@ -47,7 +47,7 @@ LIMIT
 WITH
   yearly_counts AS (
     SELECT
-      CAST(strftime('%Y', date_added) AS INTEGER) AS year,
+      CAST(STRFTIME('%Y', date_added) AS INTEGER) AS year,
       type,
       COUNT(*) AS count
     FROM
@@ -91,12 +91,12 @@ ORDER BY
 WITH
   genre_months AS (
     SELECT
-      date(date_added, 'start of month') AS month,
+      DATE(date_added, 'start of month') AS month,
       genres.value AS genre,
-      count(*) AS monthly_count
+      COUNT(*) AS monthly_count
     FROM
       netflix_titles,
-      json_each(listed_in) AS genres
+      JSON_EACH(listed_in) AS genres
     WHERE
       date_added IS NOT NULL
     GROUP BY

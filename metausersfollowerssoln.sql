@@ -11,7 +11,7 @@ WITH
   follower_count AS (
     SELECT
       user_id AS user,
-      count(follower_id) AS follower_count
+      COUNT(follower_id) AS follower_count
     FROM
       famous
     GROUP BY
@@ -19,9 +19,9 @@ WITH
   )
 SELECT
   user,
-  round(
+  ROUND(
     follower_count * 100.0 / (
-      SELECT count(*)
+      SELECT COUNT(*)
       FROM
         distinct_users
     ),

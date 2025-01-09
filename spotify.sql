@@ -13,48 +13,55 @@ CREATE TABLE spotify_daily_rankings_2017_us (
 );
 
 INSERT INTO
-spotify_daily_rankings_2017_us (position, trackname, artist, streams, url, rank_date)
+  spotify_daily_rankings_2017_us (
+    position,
+    trackname,
+    artist,
+    streams,
+    url,
+    rank_date
+  )
 VALUES
-(
-  1,
-  'Track A',
-  'Artist 1',
-  500000,
-  'https://url1.com',
-  '2017-01-01'
-),
-(
-  2,
-  'Track B',
-  'Artist 2',
-  400000,
-  'https://url2.com',
-  '2017-01-01'
-),
-(
-  1,
-  'Track A',
-  'Artist 1',
-  520000,
-  'https://url1.com',
-  '2017-01-02'
-),
-(
-  3,
-  'Track C',
-  'Artist 3',
-  300000,
-  'https://url3.com',
-  '2017-01-02'
-),
-(
-  1,
-  'Track D',
-  'Artist 4',
-  600000,
-  'https://url4.com',
-  '2017-01-03'
-);
+  (
+    1,
+    'Track A',
+    'Artist 1',
+    500000,
+    'https://url1.com',
+    '2017-01-01'
+  ),
+  (
+    2,
+    'Track B',
+    'Artist 2',
+    400000,
+    'https://url2.com',
+    '2017-01-01'
+  ),
+  (
+    1,
+    'Track A',
+    'Artist 1',
+    520000,
+    'https://url1.com',
+    '2017-01-02'
+  ),
+  (
+    3,
+    'Track C',
+    'Artist 3',
+    300000,
+    'https://url3.com',
+    '2017-01-02'
+  ),
+  (
+    1,
+    'Track D',
+    'Artist 4',
+    600000,
+    'https://url4.com',
+    '2017-01-03'
+  );
 
 CREATE TABLE spotify_worldwide_daily_song_ranking (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,71 +75,71 @@ CREATE TABLE spotify_worldwide_daily_song_ranking (
 );
 
 INSERT INTO
-spotify_worldwide_daily_song_ranking (
-  position,
-  trackname,
-  artist,
-  streams,
-  url,
-  rank_date,
-  region
-)
+  spotify_worldwide_daily_song_ranking (
+    position,
+    trackname,
+    artist,
+    streams,
+    url,
+    rank_date,
+    region
+  )
 VALUES
-(
-  1,
-  'Track A',
-  'Artist 1',
-  550000,
-  'https://url1.com',
-  '2017-01-01',
-  'US'
-),
-(
-  2,
-  'Track B',
-  'Artist 2',
-  450000,
-  'https://url2.com',
-  '2017-01-01',
-  'US'
-),
-(
-  1,
-  'Track A',
-  'Artist 1',
-  530000,
-  'https://url1.com',
-  '2017-01-02',
-  'US'
-),
-(
-  1,
-  'Track D',
-  'Artist 4',
-  610000,
-  'https://url4.com',
-  '2017-01-03',
-  'US'
-),
-(
-  3,
-  'Track C',
-  'Artist 3',
-  320000,
-  'https://url3.com',
-  '2017-01-03',
-  'US'
-);
+  (
+    1,
+    'Track A',
+    'Artist 1',
+    550000,
+    'https://url1.com',
+    '2017-01-01',
+    'US'
+  ),
+  (
+    2,
+    'Track B',
+    'Artist 2',
+    450000,
+    'https://url2.com',
+    '2017-01-01',
+    'US'
+  ),
+  (
+    1,
+    'Track A',
+    'Artist 1',
+    530000,
+    'https://url1.com',
+    '2017-01-02',
+    'US'
+  ),
+  (
+    1,
+    'Track D',
+    'Artist 4',
+    610000,
+    'https://url4.com',
+    '2017-01-03',
+    'US'
+  ),
+  (
+    3,
+    'Track C',
+    'Artist 3',
+    320000,
+    'https://url3.com',
+    '2017-01-03',
+    'US'
+  );
 
 SELECT
   ust.trackname,
-  count(*) AS days_in_first_position
+  COUNT(*) AS days_in_first_position
 FROM
   spotify_daily_rankings_2017_us AS ust
   INNER JOIN spotify_worldwide_daily_song_ranking AS wt ON ust.trackname = wt.trackname
-    AND ust.rank_date = wt.rank_date
-    AND ust.position = 1 = wt.position
-    AND wt.region = 'US'
+  AND ust.rank_date = wt.rank_date
+  AND ust.position = 1 = wt.position
+  AND wt.region = 'US'
 GROUP BY
   ust.trackname
 ORDER BY

@@ -2,7 +2,7 @@ WITH
   winners AS (
     SELECT
       nominee,
-      count(*) AS winning_count
+      COUNT(*) AS winning_count
     FROM
       oscar_nominees
     WHERE

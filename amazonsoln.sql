@@ -2,8 +2,8 @@ WITH
   -- Filter out returns and extract year-month
   monthly_revenue AS (
     SELECT
-      strftime('%Y-%m', created_at) AS year_month,
-      sum(
+      STRFTIME('%Y-%m', created_at) AS year_month,
+      SUM(
         CASE
           WHEN purchase_amt > 0 THEN purchase_amt
           ELSE 0
@@ -12,17 +12,16 @@ WITH
     FROM
       amazon_purchases
     GROUP BY
-      strftime('%Y-%m', created_at)
+      STRFTIME('%Y-%m', created_at)
   ),
   -- Calculate 3-month rolling average
   rolling_average AS (
     SELECT
       year_month,
-      avg(revenue) OVER (
+      AVG(revenue) OVER (
         ORDER BY
-          year_month
-        ROWS BETWEEN 2 PRECEDING
-        AND CURRENT ROW
+          year_month ROWS BETWEEN 2 PRECEDING
+          AND CURRENT ROW
       ) AS rolling_avg
     FROM
       monthly_revenue
@@ -30,7 +29,7 @@ WITH
   -- Select and order results
 SELECT
   year_month,
-  round(rolling_avg, 2) AS rolling_avg
+  ROUND(rolling_avg, 2) AS rolling_avg
 FROM
   rolling_average
 ORDER BY

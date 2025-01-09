@@ -4,101 +4,101 @@
 .print '---BEGINNER---';
 /* sql-formatter-enable */
 SELECT
-  PaymentTier,
+  paymenttier,
   COUNT(*) AS employee_count
 FROM
   employee_information
 GROUP BY
-  PaymentTier;
+  paymenttier;
 
 SELECT
-  Gender,
-  ROUND(AVG(age), 2) AS Average_Age
+  gender,
+  ROUND(AVG(age), 2) AS average_age
 FROM
   employee_information
 GROUP BY
-  Gender;
+  gender;
 
 /* sql-formatter-disable */
 .mode column
 .print '---INTERMEDIATE---';
 /* sql-formatter-enable */
 SELECT
-  City,
+  city,
   ROUND(
     100.0 * TOTAL(
       CASE
-        WHEN EverBenched = 'Yes' THEN 1
+        WHEN everbenched = 'Yes' THEN 1
         ELSE 0
       END
     ) / COUNT(*),
     2
-  ) AS BenchedPercentage
+  ) AS benchedpercentage
 FROM
   employee_information
 GROUP BY
-  City
+  city
 ORDER BY
-  BenchedPercentage DESC
+  benchedpercentage DESC
 LIMIT
   3;
 
 SELECT
-  Education,
+  education,
   ROUND(
     AVG(
       CASE
-        WHEN JoiningYear < 2015 THEN ExperienceInCurrentDomain
+        WHEN joiningyear < 2015 THEN experienceincurrentdomain
       END
     ),
     2
-  ) AS AvgExpBefore2015,
+  ) AS avgexpbefore2015,
   ROUND(
     AVG(
       CASE
-        WHEN JoiningYear >= 2015 THEN ExperienceInCurrentDomain
+        WHEN joiningyear >= 2015 THEN experienceincurrentdomain
       END
     ),
     2
-  ) AS AvgExpAfter2015
+  ) AS avgexpafter2015
 FROM
   employee_information
 GROUP BY
-  Education;
+  education;
 
 /* sql-formatter-disable */
 .mode column
 .print '---ADVANCED---';
 /* sql-formatter-enable */
 WITH
-  CityLeaveRates AS (
+  cityleaverates AS (
     SELECT
-      City,
-      ROUND(AVG(1.0 * LeaveOrNot), 2) AS CityLeaveRate
+      city,
+      ROUND(AVG(1.0 * leaveornot), 2) AS cityleaverate
     FROM
       employee_information
     GROUP BY
-      City
+      city
   )
 SELECT
-  PaymentTier,
+  paymenttier,
   CASE
-    WHEN ExperienceInCurrentDomain <= 3 THEN 'Low'
-    WHEN ExperienceInCurrentDomain BETWEEN 4 AND 7  THEN 'Medium'
+    WHEN experienceincurrentdomain <= 3 THEN 'Low'
+    WHEN experienceincurrentdomain BETWEEN 4 AND 7  THEN 'Medium'
     ELSE 'High'
-  END AS ExperienceLevel,
-  ei.City AS City,
-  clr.CityLeaveRate,
-  ROUND(SUM(1.0 * LeaveOrNot) / COUNT(*), 2) AS GroupLeaveRate
+  END AS experiencelevel,
+  ei.city AS city,
+  clr.cityleaverate,
+  ROUND(SUM(1.0 * leaveornot) / COUNT(*), 2) AS groupleaverate
 FROM
   employee_information ei
-  JOIN CityLeaveRates clr USING (City)
+  JOIN cityleaverates clr USING (city)
 GROUP BY
-  PaymentTier,
-  ExperienceLevel,
-  City,
-  CityLeaveRate
+  paymenttier,
+  experiencelevel,
+  city,
+  cityleaverate
 ORDER BY
-  PaymentTier,
-  ExperienceLevel,
-  City;
+  paymenttier,
+  experiencelevel,
+  city;

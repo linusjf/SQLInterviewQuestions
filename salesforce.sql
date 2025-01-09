@@ -8,17 +8,17 @@ CREATE TABLE sales_performance (
 );
 
 INSERT INTO
-sales_performance (salesperson, widget_sales, sales_revenue)
+  sales_performance (salesperson, widget_sales, sales_revenue)
 VALUES
-('Jim', 810, 40500),
-('Bobby', 661, 33050),
-('Samantha', 1006, 50300),
-('Taylor', 984, 49200),
-('Tom', 403, 20150),
-('Pat', 715, 35750),
-('Lisa', 1247, 62350);
+  ('Jim', 810, 40500),
+  ('Bobby', 661, 33050),
+  ('Samantha', 1006, 50300),
+  ('Taylor', 984, 49200),
+  ('Tom', 403, 20150),
+  ('Pat', 715, 35750),
+  ('Lisa', 1247, 62350);
 
-SELECT sum(sales_revenue) AS total_sales
+SELECT SUM(sales_revenue) AS total_sales
 FROM
   sales_performance
 WHERE

@@ -11,7 +11,7 @@ CREATE TABLE netflix_titles (
   director TEXT,
   cast TEXT,
   country TEXT,
-  date_added DATETIME,
+  date_added datetime,
   release_year INTEGER,
   rating TEXT,
   duration TEXT,
@@ -27,14 +27,14 @@ UPDATE netflix_titles
 SET
   listed_in = concat (
     '[',
-    replace(quote(listed_in), ', ', ''','''),
+    REPLACE(QUOTE(listed_in), ', ', ''','''),
     ']'
   );
 
 -- Escape listed_in contents for json format
 UPDATE netflix_titles
 SET
-  listed_in = replace(listed_in, '''''', '\''\''');
+  listed_in = REPLACE(listed_in, '''''', '\''\''');
 
 -- Convert datetime field to format sqlite understands
 WITH
@@ -61,8 +61,8 @@ SET
     FROM
       cte c
     WHERE
-      date_added LIKE '%' || c.month_name || '%'
-  ) || '-' || printf(
+      date_added like '%' || c.month_name || '%'
+  ) || '-' || PRINTF(
     '%02d',
     SUBSTR(date_added, LENGTH(date_added) - 7, 2)
   );
@@ -92,13 +92,13 @@ SELECT
   x.value AS genre
 FROM
   netflix_titles,
-  json_each(listed_in) AS x
+  JSON_EACH(listed_in) AS x
 WHERE
   show_id = 's35';
 
 -- Check how many country columns are NULl
 SELECT
-  count(*) AS no_country_count
+  COUNT(*) AS no_country_count
 FROM
   netflix_titles
 WHERE
