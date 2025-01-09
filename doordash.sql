@@ -59,7 +59,7 @@ FROM
   INNER JOIN title ON worker.worker_id = title.worker_ref_id
 WHERE
   worker.salary = (
-    SELECT MAX(salary)
+    SELECT MAX(worker.salary)
     FROM
       worker
   )
