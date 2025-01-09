@@ -9,18 +9,18 @@ CREATE TABLE sessions (
 );
 
 INSERT INTO
-  sessions (user_id, session_date)
+sessions (user_id, session_date)
 VALUES
-  (1, '2024-01-01'),
-  (2, '2024-01-02'),
-  (3, '2024-01-05'),
-  (3, '2024-01-05'),
-  (4, '2024-01-03'),
-  (4, '2024-01-03'),
-  (5, '2024-01-04'),
-  (5, '2024-01-04'),
-  (3, '2024-01-05'),
-  (5, '2024-01-04');
+(1, '2024-01-01'),
+(2, '2024-01-02'),
+(3, '2024-01-05'),
+(3, '2024-01-05'),
+(4, '2024-01-03'),
+(4, '2024-01-03'),
+(5, '2024-01-04'),
+(5, '2024-01-04'),
+(3, '2024-01-05'),
+(5, '2024-01-04');
 
 CREATE TABLE order_summary (
   order_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,18 +30,18 @@ CREATE TABLE order_summary (
 );
 
 INSERT INTO
-  order_summary (user_id, order_value, order_date)
+order_summary (user_id, order_value, order_date)
 VALUES
-  (1, 152, '2024-01-01'),
-  (2, 485, '2024-01-02'),
-  (3, 398, '2024-01-05'),
-  (3, 320, '2024-01-05'),
-  (4, 156, '2024-01-03'),
-  (4, 121, '2024-01-03'),
-  (5, 238, '2024-01-04'),
-  (5, 70, '2024-01-04'),
-  (3, 152, '2024-01-05'),
-  (5, 171, '2024-01-04');
+(1, 152, '2024-01-01'),
+(2, 485, '2024-01-02'),
+(3, 398, '2024-01-05'),
+(3, 320, '2024-01-05'),
+(4, 156, '2024-01-03'),
+(4, 121, '2024-01-03'),
+(5, 238, '2024-01-04'),
+(5, 70, '2024-01-04'),
+(3, 152, '2024-01-05'),
+(5, 171, '2024-01-04');
 
 WITH
   grouped_orders AS (
@@ -66,7 +66,7 @@ SELECT
   total_order_value
 FROM
   grouped_orders
-  JOIN sessions USING (user_id)
+  INNER JOIN sessions ON grouped_orders.user_id = sessions.user_id
 WHERE
   session_date = order_date
 GROUP BY

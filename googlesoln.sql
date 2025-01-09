@@ -1,27 +1,23 @@
 WITH
   mutual_friends AS (
-    SELECT
-      friend_id
+    SELECT friend_id
     FROM
       friends
     WHERE
       user_id = (
-        SELECT
-          USER_ID
+        SELECT user_id
         FROM
           users
         WHERE
           user_name = 'Karl'
       )
     INTERSECT
-    SELECT
-      friend_id
+    SELECT friend_id
     FROM
       friends
     WHERE
       user_id = (
-        SELECT
-          USER_ID
+        SELECT user_id
         FROM
           users
         WHERE
@@ -35,8 +31,7 @@ FROM
   users
 WHERE
   user_id IN (
-    SELECT
-      friend_id
+    SELECT friend_id
     FROM
       mutual_friends
   );

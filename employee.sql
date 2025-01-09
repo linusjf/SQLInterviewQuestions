@@ -16,5 +16,7 @@ CREATE TABLE IF NOT EXISTS "employee_information" (
 
 /* sql-formatter-disable */
 .mode csv
+
 .import --skip 1 employee.csv employee_information
+
 /* sql-formatter-enable */

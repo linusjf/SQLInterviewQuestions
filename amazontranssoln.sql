@@ -2,7 +2,7 @@ WITH
   monthly_revenue AS (
     SELECT
       strftime('%Y-%m', created_at) AS year_month,
-      TOTAL(value) AS revenue
+      total(value) AS revenue
     FROM
       sf_transactions
     GROUP BY
@@ -13,17 +13,17 @@ WITH
   prev_month_revenue AS (
     SELECT
       *,
-      LAG(revenue) OVER (
+      lag(revenue) OVER (
         ORDER BY
           year_month
-      ) prev_month_revenue
+      ) AS prev_month_revenue
     FROM
       monthly_revenue
   )
 SELECT
   year_month,
-  ROUND(100.0 * revenue / prev_month_revenue, 2) AS pct_change
+  round(100.0 * revenue / prev_month_revenue, 2) AS pct_change
 FROM
   prev_month_revenue
 WHERE
-  pct_change IS NOT NULL;
+  pct_change IS NOT null;

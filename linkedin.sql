@@ -8,12 +8,12 @@ CREATE TABLE db_dept (
 );
 
 INSERT INTO
-  db_dept (department)
+db_dept (department)
 VALUES
-  ('engineering'),
-  ('human resource'),
-  ('operation'),
-  ('marketing');
+('engineering'),
+('human resource'),
+('operation'),
+('marketing');
 
 CREATE TABLE db_employee (
   id INT,
@@ -25,26 +25,26 @@ CREATE TABLE db_employee (
 );
 
 INSERT INTO
-  db_employee (id, first_name, last_name, salary, department_id)
+db_employee (id, first_name, last_name, salary, department_id)
 VALUES
-  (10306, 'Ashley', 'Li', 28516, 4),
-  (10307, 'Joseph', 'Solomon', 19945, 1),
-  (10311, 'Melissa', 'Holmes', 33575, 1),
-  (10316, 'Beth', 'Torres', 34902, 1),
-  (10317, 'Pamela', 'Rodriguez', 48187, 4),
-  (10320, 'Gregory', 'Cook', 22681, 4),
-  (10324, 'William', 'Brewer', 15947, 1),
-  (10329, 'Christopher', 'Ramos', 37710, 4),
-  (10333, 'Jennifer', 'Blankenship', 13433, 4),
-  (10339, 'Robert', 'Mills', 13188, 1);
+(10306, 'Ashley', 'Li', 28516, 4),
+(10307, 'Joseph', 'Solomon', 19945, 1),
+(10311, 'Melissa', 'Holmes', 33575, 1),
+(10316, 'Beth', 'Torres', 34902, 1),
+(10317, 'Pamela', 'Rodriguez', 48187, 4),
+(10320, 'Gregory', 'Cook', 22681, 4),
+(10324, 'William', 'Brewer', 15947, 1),
+(10329, 'Christopher', 'Ramos', 37710, 4),
+(10333, 'Jennifer', 'Blankenship', 13433, 4),
+(10339, 'Robert', 'Mills', 13188, 1);
 
 SELECT
-  ABS(
-    MAX(
+  abs(
+    max(
       CASE
         WHEN department = 'marketing' THEN salary
       END
-    ) - MAX(
+    ) - max(
       CASE
         WHEN department = 'engineering' THEN salary
       END
@@ -52,4 +52,4 @@ SELECT
   ) AS salary_difference
 FROM
   db_employee
-  JOIN db_dept ON db_dept.id = db_employee.department_id;
+  INNER JOIN db_dept ON db_employee.department_id = db_dept.id;

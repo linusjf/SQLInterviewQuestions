@@ -1,12 +1,10 @@
 WITH
   distinct_users AS (
-    SELECT
-      user_id AS users
+    SELECT user_id AS users
     FROM
       famous
     UNION
-    SELECT
-      follower_id
+    SELECT follower_id
     FROM
       famous
   ),
@@ -21,10 +19,9 @@ WITH
   )
 SELECT
   user,
-  ROUND(
+  round(
     follower_count * 100.0 / (
-      SELECT
-        COUNT(*)
+      SELECT count(*)
       FROM
         distinct_users
     ),

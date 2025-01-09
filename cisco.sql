@@ -8,18 +8,18 @@ CREATE TABLE user_content (
 );
 
 INSERT INTO
-  user_content (customer_id, content_type, content_text)
+user_content (customer_id, content_type, content_text)
 VALUES
-  (2, 'comment', 'hello world! this is a TEST.'),
-  (8, 'comment', 'what a great day'),
-  (4, 'comment', 'WELCOME to the event.'),
-  (2, 'comment', 'e-commerce is booming.'),
-  (6, 'comment', 'Python is fun!!'),
-  (6, 'review', '123 numbers in text.'),
-  (10, 'review', 'special chars: @#$$%^&*()'),
-  (4, 'comment', 'multiple CAPITALS here.'),
-  (6, 'review', 'sentence. and ANOTHER sentence!'),
-  (2, 'post', 'goodBYE!');
+(2, 'comment', 'hello world! this is a TEST.'),
+(8, 'comment', 'what a great day'),
+(4, 'comment', 'WELCOME to the event.'),
+(2, 'comment', 'e-commerce is booming.'),
+(6, 'comment', 'Python is fun!!'),
+(6, 'review', '123 numbers in text.'),
+(10, 'review', 'special chars: @#$$%^&*()'),
+(4, 'comment', 'multiple CAPITALS here.'),
+(6, 'review', 'sentence. and ANOTHER sentence!'),
+(2, 'post', 'goodBYE!');
 
 WITH
   json_convert AS (
@@ -32,7 +32,7 @@ WITH
   capitalized AS (
     SELECT
       content_text,
-      UPPER(substring(x.value, 1, 1)) || substring(x.value, 2) AS json_vals
+      upper(substring(x.value, 1, 1)) || substring(x.value, 2) AS json_vals
     FROM
       json_convert,
       json_each(json_text) AS x

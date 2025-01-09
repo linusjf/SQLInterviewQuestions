@@ -12,11 +12,10 @@ WITH
     ORDER BY
       winning_count DESC
   )
-SELECT
-  top_genre AS genre
+SELECT top_genre AS genre
 FROM
-  nominee_information ni
-  JOIN winners w ON ni.name = w.nominee
+  nominee_information AS ni
+  INNER JOIN winners AS w ON ni.name = w.nominee
 ORDER BY
   ni.name ASC
 LIMIT
