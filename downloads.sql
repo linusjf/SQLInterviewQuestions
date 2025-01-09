@@ -50,16 +50,16 @@ VALUES
   ('2024-10-03', 5, 18);
 
 SELECT
-  download_date,
+  download_facts.download_date,
   SUM(
     CASE
-      WHEN paying_customer = 'Yes' THEN downloads
+      WHEN acc_dimension.paying_customer = 'Yes' THEN download_facts.downloads
       ELSE 0
     END
   ) AS paid_downloads,
   SUM(
     CASE
-      WHEN paying_customer = 'No' THEN downloads
+      WHEN acc_dimension.paying_customer = 'No' THEN download_facts.downloads
       ELSE 0
     END
   ) AS unpaid_downloads
@@ -68,8 +68,8 @@ FROM
   INNER JOIN acc_dimension ON user_dimension.acc_id = acc_dimension.acc_id
   INNER JOIN download_facts USING (user_id)
 GROUP BY
-  download_date
+  download_facts.download_date
 HAVING
   unpaid_downloads > paid_downloads
 ORDER BY
-  download_date;
+  download_facts.download_date;
