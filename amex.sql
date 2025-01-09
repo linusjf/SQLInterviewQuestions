@@ -84,15 +84,15 @@ VALUES
   (2, '2024-11-12 09:30:00', 'Furniture', 180);
 
 SELECT
-  id,
-  first_name,
-  last_name,
-  SUM(total_order_cost) AS total_transaction_amt
+  customers.id,
+  customers.first_name,
+  customers.last_name,
+  SUM(card_orders.total_order_cost) AS total_transaction_amt
 FROM
   customers
   INNER JOIN card_orders ON customers.id = card_orders.cust_id
 GROUP BY
-  id
+  customers.id
 ORDER BY
   total_transaction_amt DESC
 LIMIT
@@ -103,19 +103,19 @@ OFFSET
 WITH
   ranks AS (
     SELECT
-      id,
-      first_name,
-      last_name,
-      SUM(total_order_cost) AS total_transaction_amt,
+      customers.id,
+      customers.first_name,
+      customers.last_name,
+      SUM(card_orders.total_order_cost) AS total_transaction_amt,
       DENSE_RANK() OVER (
         ORDER BY
-          SUM(total_order_cost) DESC
+          SUM(card_orders.total_order_cost) DESC
       ) AS rank
     FROM
       customers
       INNER JOIN card_orders ON customers.id = card_orders.cust_id
     GROUP BY
-      id
+      customers.id
     ORDER BY
       rank
   )
@@ -129,19 +129,19 @@ WHERE
   rank = 3;
 
 SELECT
-  id,
-  first_name,
-  last_name,
-  SUM(total_order_cost) AS total_transaction_amt,
+      customers.id,
+      customers.first_name,
+      customers.last_name,
+  SUM(card_orders.total_order_cost) AS total_transaction_amt,
   DENSE_RANK() OVER (
     ORDER BY
-      SUM(total_order_cost) DESC
+      SUM(card_orders.total_order_cost) DESC
   ) AS rank
 FROM
   customers
   INNER JOIN card_orders ON customers.id = card_orders.cust_id
 GROUP BY
-  id
+  customers.id
 ORDER BY
   rank
 LIMIT
