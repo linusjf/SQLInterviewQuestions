@@ -31,11 +31,11 @@ WITH
   ),
   capitalized AS (
     SELECT
-      content_text,
-      UPPER(SUBSTRING(x.value, 1, 1)) || SUBSTRING(x.value, 2) AS json_vals
+      json_convert.content_text,
+      UPPER(SUBSTRING(word.value, 1, 1)) || SUBSTRING(word.value, 2) AS json_vals
     FROM
       json_convert,
-      JSON_EACH(json_text) AS x
+      JSON_EACH(json_convert.json_text) AS word
   )
 SELECT
   content_text,
