@@ -180,32 +180,32 @@ WITH
   ),
   manager_salary AS (
     SELECT
-      e.department,
-      e.id,
-      e.salary,
-      m.salary AS mgr_salary
+      emps.department,
+      emps.id,
+      emps.salary,
+      mgrs.salary AS mgr_salary
     FROM
-      employee_o AS e
-      LEFT JOIN employee_o AS m ON e.manager_id = m.id
+      employee_o AS emps
+      LEFT JOIN employee_o AS mgrs ON emps.manager_id = mgrs.id
     GROUP BY
-      e.department,
-      e.id
+      emps.department,
+      emps.id
     ORDER BY
-      e.department,
-      e.id
+      emps.department,
+      emps.id
   )
 SELECT
-  department,
-  id,
-  salary,
-  mgr_salary,
-  avg_dept_salary
+  salary.department,
+  salary.id,
+  salary.salary,
+  salary.mgr_salary,
+  avg_sal.avg_dept_salary
 FROM
-  manager_salary
-  INNER JOIN avg_salary ON manager_salary.department = avg_salary.department
+  manager_salary AS salary
+  INNER JOIN avg_salary AS avg_sal ON salary.department = avg_sal.department
 GROUP BY
-  department,
-  id
+  salary.department,
+  salary.id
 ORDER BY
-  department,
-  id;
+  salary.department,
+  salary.id;

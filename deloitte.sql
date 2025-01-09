@@ -116,23 +116,23 @@ FROM
 WITH
   train_schedule AS (
     SELECT
-      a.train_id,
-      a.arrival_time,
-      d.departure_time
+      arrivals.train_id,
+      arrivals.arrival_time,
+      departures.departure_time
     FROM
-      train_arrivals AS a
-      INNER JOIN train_departures AS d ON a.train_id = d.train_id
+      train_arrivals AS arrivals
+      INNER JOIN train_departures AS departures ON arrivals.train_id = departures.train_id
   )
 SELECT MAX(overlapping_trains) AS min_platforms_required
 FROM
   (
     SELECT
-      t1.train_id,
+     schedule.train_id,
       COUNT(*) AS overlapping_trains
     FROM
-      train_schedule AS t1
-      INNER JOIN train_schedule AS t2 ON t1.arrival_time <= t2.departure_time
-      AND t1.departure_time >= t2.arrival_time
+      train_schedule AS schedule
+      INNER JOIN train_schedule AS sch ON schedule.arrival_time <= sch.departure_time
+      AND schedule.departure_time >= sch.arrival_time
     GROUP BY
-      t1.train_id
+      schedule.train_id
   ) AS overlapping_counts;

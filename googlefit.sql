@@ -52,9 +52,9 @@ WITH
   ),
   sessioncoords AS (
     SELECT
-      ss.user_id,
-      ss.session_id,
-      ss.day,
+      steps.user_id,
+      steps.session_id,
+      steps.day,
       MIN(
         CASE
           WHEN step_id = min_step_id THEN latitude
@@ -76,14 +76,14 @@ WITH
         END
       ) AS max_long
     FROM
-      sessionsteps AS ss
-      INNER JOIN google_fit_location ON ss.user_id = google_fit_location.user_id
-      AND ss.session_id = google_fit_location.session_id
-      AND ss.day = google_fit_location.day
+      sessionsteps AS steps
+      INNER JOIN google_fit_location ON steps.user_id = google_fit_location.user_id
+      AND steps.session_id = google_fit_location.session_id
+      AND steps.day = google_fit_location.day
     GROUP BY
-      ss.user_id,
-      ss.session_id,
-      ss.day
+      steps.user_id,
+      steps.session_id,
+      steps.day
   ),
   distances AS (
     SELECT

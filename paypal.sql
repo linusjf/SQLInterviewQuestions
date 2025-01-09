@@ -148,11 +148,11 @@ VALUES
     6
   );
 
-SELECT m.first_name
+SELECT mgrs.first_name
 FROM
-  employees AS e
-  INNER JOIN employees AS m ON e.manager_id = m.id
+  employees AS emps
+  INNER JOIN employees AS mgrs ON emps.manager_id = mgrs.id
 GROUP BY
-  m.first_name
+  mgrs.first_name
 HAVING
-  COUNT(e.id) >= 4;
+  COUNT(emps.id) >= 4;

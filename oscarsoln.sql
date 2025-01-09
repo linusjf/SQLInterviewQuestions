@@ -14,9 +14,9 @@ WITH
   )
 SELECT top_genre AS genre
 FROM
-  nominee_information AS ni
-  INNER JOIN winners AS w ON ni.name = w.nominee
+  nominee_information AS nom_info
+  INNER JOIN winners ON nom_info.name = winners.nominee
 ORDER BY
-  ni.name ASC
+  nom_info.name ASC
 LIMIT
   1;

@@ -136,10 +136,10 @@ SELECT
   COUNT(*) AS days_in_first_position
 FROM
   spotify_daily_rankings_2017_us AS ust
-  INNER JOIN spotify_worldwide_daily_song_ranking AS wt ON ust.trackname = wt.trackname
-  AND ust.rank_date = wt.rank_date
-  AND ust.position = 1 = wt.position
-  AND wt.region = 'US'
+  INNER JOIN spotify_worldwide_daily_song_ranking AS wwt ON ust.trackname = wwt.trackname
+  AND ust.rank_date = wwt.rank_date
+  AND ust.position = 1 = wwt.position
+  AND wwt.region = 'US'
 GROUP BY
   ust.trackname
 ORDER BY

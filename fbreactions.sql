@@ -81,10 +81,10 @@ VALUES
   );
 
 SELECT
-  a.*
+  posts.*
 FROM
-  facebook_posts AS a
-  INNER JOIN facebook_reactions ON a.post_id = facebook_reactions.post_id
-  AND a.poster = facebook_reactions.poster
+  facebook_posts AS posts
+  INNER JOIN facebook_reactions ON posts.post_id = facebook_reactions.post_id
+  AND posts.poster = facebook_reactions.poster
 WHERE
   reaction = 'heart';
