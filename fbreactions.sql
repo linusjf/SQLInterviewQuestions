@@ -87,4 +87,4 @@ FROM
   INNER JOIN facebook_reactions ON posts.post_id = facebook_reactions.post_id
   AND posts.poster = facebook_reactions.poster
 WHERE
-  reaction = 'heart';
+  facebook_reactions.reaction = 'heart';
