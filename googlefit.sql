@@ -57,29 +57,29 @@ WITH
       steps.day,
       MIN(
         CASE
-          WHEN step_id = min_step_id THEN latitude
+          WHEN gfl.step_id = steps.min_step_id THEN gfl.latitude
         END
       ) AS min_lat,
       MIN(
         CASE
-          WHEN step_id = min_step_id THEN longitude
+          WHEN gfl.step_id = steps.min_step_id THEN gfl.longitude
         END
       ) AS min_long,
       MAX(
         CASE
-          WHEN step_id = max_step_id THEN latitude
+          WHEN gfl.step_id = steps.max_step_id THEN gfl.latitude
         END
       ) AS max_lat,
       MAX(
         CASE
-          WHEN step_id = max_step_id THEN longitude
+          WHEN gfl.step_id = steps.max_step_id THEN gfl.longitude
         END
       ) AS max_long
     FROM
       sessionsteps AS steps
-      INNER JOIN google_fit_location ON steps.user_id = google_fit_location.user_id
-      AND steps.session_id = google_fit_location.session_id
-      AND steps.day = google_fit_location.day
+      INNER JOIN google_fit_location AS gfl ON steps.user_id = gfl.user_id
+      AND steps.session_id = gfl.session_id
+      AND steps.day = gfl.day
     GROUP BY
       steps.user_id,
       steps.session_id,
