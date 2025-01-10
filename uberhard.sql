@@ -82,19 +82,19 @@ WITH
   ),
   avg_amts AS (
     SELECT
-      location,
-      ROUND(AVG(amt), 2) AS avg_amt
+      signups.location,
+      ROUND(AVG(transactions.amt), 2) AS avg_amt
     FROM
       transactions
       INNER JOIN signups ON transactions.signup_id = signups.signup_id
     GROUP BY
-      location
+      signups.location
   )
 SELECT
-  location,
-  avg_signup_duration_mins,
-  avg_amt,
-  ROUND(avg_amt / avg_signup_duration_mins, 2) AS ratio
+  avg_amts.location,
+  avg_signups.avg_signup_duration_mins,
+  avg_amts.avg_amt,
+  ROUND(avg_amts.avg_amt / avg_signups.avg_signup_duration_mins, 2) AS ratio
 FROM
   avg_signups
   INNER JOIN avg_amts ON avg_signups.location = avg_amts.location

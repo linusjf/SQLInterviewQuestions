@@ -52,7 +52,7 @@ FROM
   sessions
   INNER JOIN order_summary ON sessions.user_id = order_summary.user_id
 WHERE
-  STRFTIME('%J', sessions.session_date) = STRFTIME('%J', order_date)
+  STRFTIME('%J', sessions.session_date) = STRFTIME('%J', order_summary.order_date)
 GROUP BY
   sessions.user_id,
   sessions.session_date
