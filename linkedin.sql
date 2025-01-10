@@ -42,11 +42,11 @@ SELECT
   ABS(
     MAX(
       CASE
-        WHEN department = 'marketing' THEN salary
+        WHEN db_dept.department = 'marketing' THEN db_employee.salary
       END
     ) - MAX(
       CASE
-        WHEN department = 'engineering' THEN salary
+        WHEN db_dept.department = 'engineering' THEN db_employee.salary
       END
     )
   ) AS salary_difference

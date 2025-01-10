@@ -1,3 +1,4 @@
+--noqa:disable=RF02
 WITH
   mutual_friends AS (
     SELECT friend_id
