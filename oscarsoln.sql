@@ -12,7 +12,7 @@ WITH
     ORDER BY
       winning_count DESC
   )
-SELECT top_genre AS genre
+SELECT nom_info.top_genre AS genre
 FROM
   nominee_information AS nom_info
   INNER JOIN winners ON nom_info.name = winners.nominee

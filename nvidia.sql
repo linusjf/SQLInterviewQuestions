@@ -50,12 +50,12 @@ VALUES
   (118, '2016-01-06 14:27:33', 5);
 
 SELECT
-  product_name,
-  COUNT(transaction_id) AS transaction_count
+  inv.product_name,
+  COUNT(trans.transaction_id) AS transaction_count
 FROM
-  excel_sql_inventory_data
-  INNER JOIN excel_sql_transaction_data ON excel_sql_inventory_data.product_id = excel_sql_transaction_data.product_id
+  excel_sql_inventory_data AS inv
+  INNER JOIN excel_sql_transaction_data AS trans USING (product_id)
 GROUP BY
-  product_id
+  inv.product_id
 ORDER BY
-  product_id;
+  inv.product_id;

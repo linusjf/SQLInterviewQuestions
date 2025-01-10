@@ -120,6 +120,7 @@ FROM
   count_users
 WHERE
   users = (
+    --noqa:disable=RF02
     SELECT MAX(users)
     FROM
       count_users
