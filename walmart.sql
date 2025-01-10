@@ -44,19 +44,19 @@ VALUES
   (5, 171, '2024-01-04 00:00:00');
 
 SELECT
-  user_id,
-  session_date,
-  COUNT(order_id) AS no_of_orders,
-  SUM(order_value) AS total_order_value
+  sessions.user_id,
+  sessions.session_date,
+  COUNT(order_summary.order_id) AS no_of_orders,
+  SUM(order_summary.order_value) AS total_order_value
 FROM
   sessions
   INNER JOIN order_summary ON sessions.user_id = order_summary.user_id
 WHERE
-  STRFTIME('%J', session_date) = STRFTIME('%J', order_date)
+  STRFTIME('%J', sessions.session_date) = STRFTIME('%J', order_date)
 GROUP BY
-  user_id,
-  session_date
+  sessions.user_id,
+  sessions.session_date
 HAVING
   no_of_orders > 0
 ORDER BY
-  session_date;
+  sessions.session_date;
