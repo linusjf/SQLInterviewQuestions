@@ -94,7 +94,10 @@ SELECT
   avg_amts.location,
   avg_signups.avg_signup_duration_mins,
   avg_amts.avg_amt,
-  ROUND(avg_amts.avg_amt / avg_signups.avg_signup_duration_mins, 2) AS ratio
+  ROUND(
+    avg_amts.avg_amt / avg_signups.avg_signup_duration_mins,
+    2
+  ) AS ratio
 FROM
   avg_signups
   INNER JOIN avg_amts ON avg_signups.location = avg_amts.location

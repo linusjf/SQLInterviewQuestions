@@ -60,18 +60,18 @@ WITH
       order_date
   )
 SELECT
-  user_id,
-  session_date,
-  no_of_orders,
-  total_order_value
+  grouped_orders.user_id,
+  sessions.session_date,
+  grouped_orders.no_of_orders,
+  grouped_orders.total_order_value
 FROM
   grouped_orders
   INNER JOIN sessions ON grouped_orders.user_id = sessions.user_id
 WHERE
-  session_date = order_date
+  sessions.session_date = grouped_orders.order_date
 GROUP BY
-  user_id,
-  session_date
+  grouped_orders.user_id,
+  sessions.session_date
 ORDER BY
-  user_id,
-  session_date;
+  grouped_orders.user_id,
+  sessions.session_date;
