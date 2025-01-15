@@ -1,10 +1,8 @@
-/* sql-formatter-disable */
 -- noqa: disable=all
 .mode column
 
 .print '---BEGINNER---';
 -- noqa: enable=all
-/* sql-formatter-enable */
 SELECT
   paymenttier,
   COUNT(*) AS employee_count
@@ -17,12 +15,10 @@ SELECT
 FROM employee_information
 GROUP BY gender;
 
-/* sql-formatter-disable */
 -- noqa: disable=all
 .mode column
 .print '---INTERMEDIATE---';
 -- noqa: enable=all
-/* sql-formatter-enable */
 SELECT
   city,
   ROUND(
@@ -60,12 +56,10 @@ SELECT
 FROM employee_information
 GROUP BY education;
 
-/* sql-formatter-disable */
 -- noqa: disable=all
 .mode column
 .print '---ADVANCED---';
 -- noqa: enable=all
-/* sql-formatter-enable */
 WITH
   cityleaverates AS (
     SELECT

@@ -1,4 +1,3 @@
-/* sql-formatter-disable */
 -- noqa: disable=all
 .mode column
 
@@ -6,7 +5,6 @@
 
 -- noqa: enable=all
 
-/* sql-formatter-enable */
 SELECT
   type,
   COUNT(type) AS count
@@ -25,11 +23,9 @@ SELECT
   ) AS pct_wo_country
 FROM netflix_titles;
 
-/* sql-formatter-disable */
 -- noqa: disable=all
 .print '---INTERMEDIATE---';
 -- noqa: enable=all
-/* sql-formatter-enable */
 SELECT
   director,
   COUNT(*) AS no_of_titles,
@@ -74,11 +70,9 @@ FROM yearly_counts
 GROUP BY year
 ORDER BY year;
 
-/* sql-formatter-disable */
 -- noqa: disable=all
 .print '---ADVANCED---';
 -- noqa: enable=all
-/* sql-formatter-enable */
 WITH
   genre_months AS (
     SELECT
