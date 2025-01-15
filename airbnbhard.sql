@@ -270,8 +270,7 @@ WITH
     SELECT
       year,
       no_registered AS this_year_regs,
-      LAG(no_registered) OVER (
-ORDER BY year) AS last_year_regs
+      LAG(no_registered) OVER (ORDER BY year) AS last_year_regs
     FROM select_by_years
   )
 SELECT

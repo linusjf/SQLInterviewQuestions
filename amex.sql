@@ -82,8 +82,7 @@ SELECT
   customers.first_name,
   customers.last_name,
   SUM(card_orders.total_order_cost) AS total_transaction_amt,
-  DENSE_RANK() OVER (
-ORDER BY SUM(card_orders.total_order_cost) DESC) AS rank
+  DENSE_RANK() OVER (ORDER BY SUM(card_orders.total_order_cost) DESC) AS rank
 FROM
   customers
   INNER JOIN card_orders ON customers.id = card_orders.cust_id

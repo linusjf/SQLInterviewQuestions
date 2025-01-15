@@ -18,8 +18,7 @@ WITH
   naive_forecast AS (
     SELECT
       *,
-      LAG(dist_per_dollar) OVER (
-ORDER BY year_month) AS forecast_value
+      LAG(dist_per_dollar) OVER (ORDER BY year_month) AS forecast_value
     FROM distance_per_dollar
   )
 SELECT ROUND(SQRT(AVG(POWER(dist_per_dollar - forecast_value, 2))), 2) AS rmse

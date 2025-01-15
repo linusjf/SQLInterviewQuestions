@@ -10,8 +10,7 @@ WITH
   prev_month_revenue AS (
     SELECT
       *,
-      LAG(revenue) OVER (
-ORDER BY year_month) AS prev_month_revenue
+      LAG(revenue) OVER (ORDER BY year_month) AS prev_month_revenue
     FROM monthly_revenue
   )
 SELECT

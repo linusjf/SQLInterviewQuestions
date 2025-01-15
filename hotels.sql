@@ -149,8 +149,7 @@ WITH
     SELECT
       hotel_name,
       average_score,
-      DENSE_RANK() OVER (
-ORDER BY average_score DESC) AS hotel_rank
+      DENSE_RANK() OVER (ORDER BY average_score DESC) AS hotel_rank
     FROM hotel_address
   )
 SELECT
