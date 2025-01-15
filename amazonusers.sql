@@ -8,8 +8,8 @@ CREATE TABLE amazon_transactions (
   revenue INT
 );
 
-INSERT INTO
-  amazon_transactions (user_id, item, created_at, revenue)
+INSERT INTO amazon_transactions
+  (user_id, item, created_at, revenue)
 VALUES
   (109, 'milk', '2020-03-03 00:00:00', 123),
   (139, 'biscuit', '2020-03-18 00:00:00', 421),
@@ -34,5 +34,4 @@ VALUES
 
 SELECT
   *
-FROM
-  amazon_transactions;
+FROM amazon_transactions;

@@ -10,16 +10,8 @@ CREATE TABLE uber_drives (
   purpose VARCHAR(50)
 );
 
-INSERT INTO
-  uber_drives (
-    start_date,
-    end_date,
-    category,
-    start,
-    stop,
-    miles,
-    purpose
-  )
+INSERT INTO uber_drives
+  (start_date, end_date, category, start, stop, miles, purpose)
 VALUES
   (
     '2016-01-01 21:11',
@@ -88,13 +80,8 @@ VALUES
 SELECT
   purpose,
   SUM(miles) AS mileage
-FROM
-  uber_drives
-WHERE
-  category = 'Business'
-GROUP BY
-  purpose
-ORDER BY
-  mileage DESC
-LIMIT
-  3;
+FROM uber_drives
+WHERE category = 'Business'
+GROUP BY purpose
+ORDER BY mileage DESC
+LIMIT 3;

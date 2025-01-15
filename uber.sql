@@ -9,8 +9,7 @@ CREATE TABLE uber_request_logs (
   driver_to_client_distance FLOAT
 );
 
-INSERT INTO
-  uber_request_logs
+INSERT INTO uber_request_logs
 VALUES
   (1, '2020-01-09', 'success', 70.59, 6.56, 14.36),
   (2, '2020-01-24', 'success', 93.36, 22.68, 19.9),

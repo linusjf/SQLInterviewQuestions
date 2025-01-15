@@ -23,8 +23,8 @@ CREATE TABLE airbnb_search_details (
   beds INT
 );
 
-INSERT INTO
-  airbnb_search_details (
+INSERT INTO airbnb_search_details
+  (
     price,
     property_type,
     room_type,
@@ -262,32 +262,26 @@ WITH
     SELECT
       STRFTIME('%Y', host_since) AS year,
       COUNT(id) AS no_registered
-    FROM
-      airbnb_search_details
-    GROUP BY
-      year
-    ORDER BY
-      year
+    FROM airbnb_search_details
+    GROUP BY year
+    ORDER BY year
   ),
   calc_lag AS (
     SELECT
       year,
       no_registered AS this_year_regs,
       LAG(no_registered) OVER (
-        ORDER BY
-          year
-      ) AS last_year_regs
-    FROM
-      select_by_years
+ORDER BY year) AS last_year_regs
+    FROM select_by_years
   )
 SELECT
   year,
   this_year_regs,
   last_year_regs,
-  ROUND(100.0 * this_year_regs / last_year_regs, 2) || '%' AS year_on_year_growth
-FROM
-  calc_lag
-WHERE
-  last_year_regs IS NOT NULL
-ORDER BY
-  year;
+  ROUND(
+    100.0 * this_year_regs / last_year_regs,
+    2
+  ) || '%' AS year_on_year_growth
+FROM calc_lag
+WHERE last_year_regs IS NOT NULL
+ORDER BY year;

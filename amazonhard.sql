@@ -55,8 +55,8 @@ CREATE TABLE innerwear_topshop_com (
   color VARCHAR(50)
 );
 
-INSERT INTO
-  innerwear_topshop_com (
+INSERT INTO innerwear_topshop_com
+  (
     product_name,
     mrp,
     price,
@@ -122,8 +122,8 @@ VALUES
     'Purple'
   );
 
-INSERT INTO
-  innerwear_amazon_com (
+INSERT INTO innerwear_amazon_com
+  (
     product_name,
     mrp,
     price,
@@ -189,8 +189,8 @@ VALUES
     'Green'
   );
 
-INSERT INTO
-  innerwear_macys_com (
+INSERT INTO innerwear_macys_com
+  (
     product_name,
     mrp,
     price,
@@ -256,7 +256,7 @@ VALUES
     'Black'
   );
 
---noqa: disable=all
+-- noqa: disable=all
 WITH
   exclude_products AS (
     SELECT
@@ -294,18 +294,16 @@ FROM
   JOIN innerwear_amazon_com iac ON e.product_name = iac.product_name
   AND e.mrp = iac.mrp;
 
---noqa: enable=all
+-- noqa: enable=all
 SELECT
   iac.product_name,
   iac.brand_name,
   iac.mrp,
   iac.rating
 FROM
-  innerwear_amazon_com iac
-  LEFT JOIN innerwear_topshop_com itc ON iac.product_name = itc.product_name
-  AND iac.mrp = itc.mrp
-  LEFT JOIN innerwear_macys_com imc ON iac.product_name = imc.product_name
-  AND iac.mrp = imc.mrp
-WHERE
-  itc.product_name IS NULL
-  AND imc.product_name IS NULL;
+  innerwear_amazon_com AS iac
+  LEFT JOIN innerwear_topshop_com AS itc
+    ON iac.product_name = itc.product_name AND iac.mrp = itc.mrp
+  LEFT JOIN innerwear_macys_com AS imc
+    ON iac.product_name = imc.product_name AND iac.mrp = imc.mrp
+WHERE itc.product_name IS NULL AND imc.product_name IS NULL;

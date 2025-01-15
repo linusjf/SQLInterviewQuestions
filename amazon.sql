@@ -6,8 +6,8 @@ CREATE TABLE amazon_purchases (
   user_id BIGINT
 );
 
-INSERT INTO
-  amazon_purchases (created_at, purchase_amt, user_id)
+INSERT INTO amazon_purchases
+  (created_at, purchase_amt, user_id)
 VALUES
   ('2023-01-05', 1500, 101),
   ('2023-01-15', -200, 102),

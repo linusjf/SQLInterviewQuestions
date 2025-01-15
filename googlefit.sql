@@ -10,16 +10,8 @@ CREATE TABLE google_fit_location (
   altitude FLOAT
 );
 
-INSERT INTO
-  google_fit_location (
-    user_id,
-    session_id,
-    step_id,
-    day,
-    latitude,
-    longitude,
-    altitude
-  )
+INSERT INTO google_fit_location
+  (user_id, session_id, step_id, day, latitude, longitude, altitude)
 VALUES
   ('user_1', 101, 1, 1, 37.7749, -122.4194, 15.0),
   ('user_1', 101, 2, 1, 37.7750, -122.4195, 15.5),
@@ -41,14 +33,9 @@ WITH
       day,
       MIN(step_id) AS min_step_id,
       MAX(step_id) AS max_step_id
-    FROM
-      google_fit_location
-    GROUP BY
-      user_id,
-      session_id,
-      day
-    HAVING
-      COUNT(DISTINCT step_id) > 1
+    FROM google_fit_location
+    GROUP BY user_id, session_id, day
+    HAVING COUNT(DISTINCT step_id) > 1
   ),
   sessioncoords AS (
     SELECT
@@ -77,13 +64,11 @@ WITH
       ) AS max_long
     FROM
       sessionsteps AS steps
-      INNER JOIN google_fit_location AS gfl ON steps.user_id = gfl.user_id
-      AND steps.session_id = gfl.session_id
-      AND steps.day = gfl.day
-    GROUP BY
-      steps.user_id,
-      steps.session_id,
-      steps.day
+      INNER JOIN google_fit_location AS gfl
+        ON steps.user_id = gfl.user_id
+        AND steps.session_id = gfl.session_id
+        AND steps.day = gfl.day
+    GROUP BY steps.user_id, steps.session_id, steps.day
   ),
   distances AS (
     SELECT
@@ -91,18 +76,17 @@ WITH
       session_id,
       day,
       6371.0 * ACOS(
-        SIN(RADIANS(min_lat)) * SIN(RADIANS(max_lat))
-        + COS(RADIANS(min_lat)) * COS(RADIANS(max_lat)) * COS(RADIANS(max_long) - RADIANS(min_long))
+        SIN(RADIANS(min_lat)) * SIN(RADIANS(max_lat)) + COS(
+          RADIANS(min_lat)
+        ) * COS(RADIANS(max_lat)) * COS(RADIANS(max_long) - RADIANS(min_long))
       ) AS curved_distance,
       SQRT(
         POWER(max_lat - min_lat, 2) + POWER(max_long - min_long, 2)
       ) * 111.0 AS flat_distance
-    FROM
-      sessioncoords
+    FROM sessioncoords
   )
 SELECT
   AVG(curved_distance) AS avg_curved_distance,
   AVG(flat_distance) AS avg_flat_distance,
   (AVG(curved_distance) - AVG(flat_distance)) AS differential
-FROM
-  distances;
+FROM distances;

@@ -10,8 +10,8 @@ CREATE TABLE facebook_reactions (
   post_id INT
 );
 
-INSERT INTO
-  facebook_reactions (friend, reaction, date_day, post_id)
+INSERT INTO facebook_reactions
+  (friend, reaction, date_day, post_id)
 VALUES
   (2, 'heart', 20240101, 101),
   (3, 'heart', 20240102, 102),
@@ -28,22 +28,10 @@ CREATE TABLE facebook_posts (
   post_date DATETIME
 );
 
-INSERT INTO
-  facebook_posts (
-    post_id,
-    poster,
-    post_text,
-    post_keywords,
-    post_date
-  )
+INSERT INTO facebook_posts
+  (post_id, poster, post_text, post_keywords, post_date)
 VALUES
-  (
-    101,
-    1,
-    'Had a great day at the park!',
-    'park, fun',
-    '2024-01-01 08:00:00'
-  ),
+  (101, 1, 'Had a great day at the park!', 'park, fun', '2024-01-01 08:00:00'),
   (
     102,
     2,
@@ -84,7 +72,7 @@ SELECT
   posts.*
 FROM
   facebook_posts AS posts
-  INNER JOIN facebook_reactions ON posts.post_id = facebook_reactions.post_id
-  AND posts.poster = facebook_reactions.poster
-WHERE
-  facebook_reactions.reaction = 'heart';
+  INNER JOIN facebook_reactions
+    ON posts.post_id = facebook_reactions.post_id
+    AND posts.poster = facebook_reactions.poster
+WHERE facebook_reactions.reaction = 'heart';

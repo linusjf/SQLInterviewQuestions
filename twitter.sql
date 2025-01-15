@@ -16,8 +16,8 @@ CREATE TABLE employees (
   manager_id INT
 );
 
-INSERT INTO
-  employees (
+INSERT INTO employees
+  (
     first_name,
     last_name,
     age,
@@ -263,18 +263,13 @@ WITH
       department,
       salary,
       DENSE_RANK() OVER (
-        PARTITION BY
-          department
-        ORDER BY
-          salary DESC
+        PARTITION BY department
+        ORDER BY salary DESC
       ) AS salary_rank
-    FROM
-      employees
+    FROM employees
   )
 SELECT DISTINCT
   department,
   salary
-FROM
-  rankings
-WHERE
-  salary_rank <= 3;
+FROM rankings
+WHERE salary_rank <= 3;

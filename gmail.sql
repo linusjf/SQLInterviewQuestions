@@ -7,8 +7,8 @@ CREATE TABLE google_gmail_emails (
   day INT
 );
 
-INSERT INTO
-  google_gmail_emails (from_user, to_user, day)
+INSERT INTO google_gmail_emails
+  (from_user, to_user, day)
 VALUES
   ('6edf0be4b2267df1fa', '75d295377a46f83236', 10),
   ('6edf0be4b2267df1fa', '32ded68d89443e808', 6),
@@ -38,10 +38,8 @@ WITH
       day,
       COUNT(DISTINCT from_user) AS distinct_from,
       COUNT(DISTINCT to_user) AS distinct_to
-    FROM
-      google_gmail_emails
-    GROUP BY
-      day
+    FROM google_gmail_emails
+    GROUP BY day
   )
 SELECT
   google_gmail_emails.day,
@@ -50,7 +48,5 @@ SELECT
 FROM
   google_gmail_emails
   INNER JOIN distinct_users ON google_gmail_emails.day = distinct_users.day
-WHERE
-  distinct_users.distinct_from < distinct_users.distinct_to
-ORDER BY
-  distinct_users.day;
+WHERE distinct_users.distinct_from < distinct_users.distinct_to
+ORDER BY distinct_users.day;

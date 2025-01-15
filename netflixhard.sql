@@ -6,8 +6,8 @@ CREATE TABLE sf_events (
   user_id VARCHAR(10)
 );
 
-INSERT INTO
-  sf_events (event_date, account_id, user_id)
+INSERT INTO sf_events
+  (event_date, account_id, user_id)
 VALUES
   ('2021-01-01', 'A1', 'U1'),
   ('2021-01-01', 'A1', 'U2'),
@@ -39,23 +39,17 @@ WITH
       user_id,
       event_date,
       LAG(event_date) OVER (
-        PARTITION BY
-          user_id
-        ORDER BY
-          event_date
+        PARTITION BY user_id
+        ORDER BY event_date
       ) AS prev_day,
       LEAD(event_date) OVER (
-        PARTITION BY
-          user_id
-        ORDER BY
-          event_date
+        PARTITION BY user_id
+        ORDER BY event_date
       ) AS next_day
-    FROM
-      sf_events
+    FROM sf_events
   )
 SELECT DISTINCT user_id
-FROM
-  leadlags
+FROM leadlags
 WHERE
   JULIANDAY(event_date) - JULIANDAY(prev_day) = 1
   AND JULIANDAY(next_day) - JULIANDAY(event_date) = 1;

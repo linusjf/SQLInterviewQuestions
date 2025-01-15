@@ -6,12 +6,12 @@ DROP TABLE IF EXISTS netflix_titles;
 -- Create the table structure
 CREATE TABLE netflix_titles (
   show_id TEXT,
-  type TEXT,
+  `type` TEXT,
   title TEXT,
   director TEXT,
-  cast TEXT,
+  `cast` TEXT,
   country TEXT,
-  date_added datetime,
+  date_added DATETIME,
   release_year INTEGER,
   rating TEXT,
   duration TEXT,
@@ -20,7 +20,7 @@ CREATE TABLE netflix_titles (
 );
 
 /* sql-formatter-disable */
---noqa: disable=all
+-- noqa: disable=all
 .import --csv --skip 1 netflix.csv netflix_titles
 --noqa: enable=all
 /* sql-formatter-enable */
@@ -35,12 +35,11 @@ SET
 
 -- Escape listed_in contents for json format
 UPDATE netflix_titles
-SET
-  listed_in = REPLACE(listed_in, '''''', '\''\''');
+SET listed_in = REPLACE(listed_in, '''''', '\''\''');
 
 -- Convert datetime field to format sqlite understands
 WITH
-  cte (month, month_name) AS (
+  cte(month, month_name) AS (
     VALUES
       ('01', 'January'),
       ('02', 'February'),
@@ -56,37 +55,25 @@ WITH
       ('12', 'December')
   )
 UPDATE netflix_titles
-SET
-  date_added = SUBSTR(date_added, LENGTH(date_added) - 3, 4) || '-' || (
-    SELECT
-      c.month
-    FROM
-      cte c
-    WHERE
-      date_added like '%' || c.month_name || '%'
-  ) || '-' || PRINTF(
-    '%02d',
-    SUBSTR(date_added, LENGTH(date_added) - 7, 2)
-  );
+SET date_added = SUBSTR(date_added, LENGTH(date_added) - 3, 4) || '-' || (
+  SELECT
+    c.month
+  FROM cte AS c
+  WHERE date_added LIKE '%' || c.month_name || '%'
+) || '-' || PRINTF('%02d', SUBSTR(date_added, LENGTH(date_added) - 7, 2));
 
 -- Test datetime conversion
 SELECT
   date_added
-FROM
-  netflix_titles
-LIMIT
-  15
-OFFSET
-  80;
+FROM netflix_titles
+LIMIT 15 OFFSET 80;
 
 -- Check if listed_in content is double quoted
 SELECT
   netflix_titles.show_id,
   listed_in AS genre
-FROM
-  netflix_titles
-WHERE
-  show_id = 's35';
+FROM netflix_titles
+WHERE show_id = 's35';
 
 -- Check if listed_in content is not malformed json
 SELECT
@@ -95,22 +82,17 @@ SELECT
 FROM
   netflix_titles,
   JSON_EACH(listed_in) AS x
-WHERE
-  show_id = 's35';
+WHERE show_id = 's35';
 
 -- Check how many country columns are NULl
 SELECT
   COUNT(*) AS no_country_count
-FROM
-  netflix_titles
-WHERE
-  country IS NULL;
+FROM netflix_titles
+WHERE country IS NULL;
 
 -- Check how many date_added columns are NULl
 SELECT
   show_id,
   date_added
-FROM
-  netflix_titles
-WHERE
-  date_added IS NULL;
+FROM netflix_titles
+WHERE date_added IS NULL;

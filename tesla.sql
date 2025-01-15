@@ -6,8 +6,7 @@ CREATE TABLE car_launches (
   product_name VARCHAR(30)
 );
 
-INSERT INTO
-  car_launches
+INSERT INTO car_launches
 VALUES
   (2019, 'Toyota', 'Avalon'),
   (2019, 'Toyota', 'Camry'),

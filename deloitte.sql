@@ -2,10 +2,13 @@ DROP TABLE IF EXISTS train_arrivals;
 
 DROP TABLE IF EXISTS train_departures;
 
-CREATE TABLE train_arrivals (train_id INT, arrival_time DATETIME);
+CREATE TABLE train_arrivals (
+  train_id INT,
+  arrival_time DATETIME
+);
 
-INSERT INTO
-  train_arrivals (train_id, arrival_time)
+INSERT INTO train_arrivals
+  (train_id, arrival_time)
 VALUES
   (1, '2024-11-17 08:00'),
   (2, '2024-11-17 08:05'),
@@ -22,10 +25,13 @@ VALUES
   (13, '2024-11-17 20:00'),
   (14, '2024-11-17 20:10');
 
-CREATE TABLE train_departures (train_id INT, departure_time DATETIME);
+CREATE TABLE train_departures (
+  train_id INT,
+  departure_time DATETIME
+);
 
-INSERT INTO
-  train_departures (train_id, departure_time)
+INSERT INTO train_departures
+  (train_id, departure_time)
 VALUES
   (1, '2024-11-17 08:15'),
   (2, '2024-11-17 08:10'),
@@ -51,32 +57,24 @@ WITH
     SELECT
       arrival_time AS event_time,
       1 AS event_type
-    FROM
-      train_arrivals
+    FROM train_arrivals
     UNION ALL
     SELECT
       departure_time AS event_time,
       -1 AS event_type
-    FROM
-      train_departures
-    ORDER BY
-      event_time ASC,
-      event_type DESC
+    FROM train_departures
+    ORDER BY event_time ASC, event_type DESC
   ),
   platforms AS (
     SELECT
       event_time,
       SUM(event_type) OVER (
-        ORDER BY
-          event_time ASC,
-          event_type DESC
+        ORDER BY event_time ASC, event_type DESC
       ) AS platforms_needed
-    FROM
-      trainevents
+    FROM trainevents
   )
 SELECT MAX(platforms_needed) AS platforms_needed
-FROM
-  platforms;
+FROM platforms;
 
 /* In the case where both trains do not have
 to be on the platform at the same time
@@ -86,32 +84,24 @@ WITH
     SELECT
       arrival_time AS event_time,
       1 AS event_type
-    FROM
-      train_arrivals
+    FROM train_arrivals
     UNION ALL
     SELECT
       departure_time AS event_time,
       -1 AS event_type
-    FROM
-      train_departures
-    ORDER BY
-      event_time,
-      event_type
+    FROM train_departures
+    ORDER BY event_time, event_type
   ),
   platforms AS (
     SELECT
       event_time,
       SUM(event_type) OVER (
-        ORDER BY
-          event_time ASC,
-          event_type ASC
+        ORDER BY event_time ASC, event_type ASC
       ) AS platforms_needed
-    FROM
-      trainevents
+    FROM trainevents
   )
 SELECT MAX(platforms_needed) AS platforms_needed
-FROM
-  platforms;
+FROM platforms;
 
 WITH
   train_schedule AS (
@@ -121,7 +111,8 @@ WITH
       departures.departure_time
     FROM
       train_arrivals AS arrivals
-      INNER JOIN train_departures AS departures ON arrivals.train_id = departures.train_id
+      INNER JOIN train_departures AS departures
+        ON arrivals.train_id = departures.train_id
   )
 SELECT MAX(overlapping_trains) AS min_platforms_required
 FROM
@@ -131,8 +122,8 @@ FROM
       COUNT(*) AS overlapping_trains
     FROM
       train_schedule AS schedule
-      INNER JOIN train_schedule AS sch ON schedule.arrival_time <= sch.departure_time
-      AND schedule.departure_time >= sch.arrival_time
-    GROUP BY
-      schedule.train_id
+      INNER JOIN train_schedule AS sch
+        ON schedule.arrival_time <= sch.departure_time
+        AND schedule.departure_time >= sch.arrival_time
+    GROUP BY schedule.train_id
   ) AS overlapping_counts;

@@ -7,8 +7,7 @@ CREATE TABLE sf_transactions (
   purchase_id INT
 );
 
-INSERT INTO
-  sf_transactions
+INSERT INTO sf_transactions
 VALUES
   (1, '2019-01-01 00:00:00', 172692, 43),
   (2, '2019-01-05 00:00:00', 177194, 36),

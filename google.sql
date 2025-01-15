@@ -2,10 +2,12 @@ DROP TABLE IF EXISTS friends;
 
 DROP TABLE IF EXISTS users;
 
-CREATE TABLE users (user_id INT, user_name VARCHAR(30));
+CREATE TABLE users (
+  user_id INT,
+  user_name VARCHAR(30)
+);
 
-INSERT INTO
-  users
+INSERT INTO users
 VALUES
   (1, 'Karl'),
   (2, 'Hans'),
@@ -18,10 +20,12 @@ VALUES
   (9, 'Anna'),
   (10, 'John');
 
-CREATE TABLE friends (user_id INT, friend_id INT);
+CREATE TABLE friends (
+  user_id INT,
+  friend_id INT
+);
 
-INSERT INTO
-  friends
+INSERT INTO friends
 VALUES
   (1, 3),
   (1, 5),

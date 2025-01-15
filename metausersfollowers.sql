@@ -1,9 +1,11 @@
 DROP TABLE IF EXISTS famous;
 
-CREATE TABLE famous (user_id INT, follower_id INT);
+CREATE TABLE famous (
+  user_id INT,
+  follower_id INT
+);
 
-INSERT INTO
-  famous
+INSERT INTO famous
 VALUES
   (1, 2),
   (1, 3),

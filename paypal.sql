@@ -17,8 +17,8 @@ CREATE TABLE employees (
   manager_id INT
 );
 
-INSERT INTO
-  employees (
+INSERT INTO employees
+  (
     id,
     first_name,
     last_name,
@@ -152,7 +152,5 @@ SELECT mgrs.first_name
 FROM
   employees AS emps
   INNER JOIN employees AS mgrs ON emps.manager_id = mgrs.id
-GROUP BY
-  mgrs.first_name
-HAVING
-  COUNT(emps.id) >= 4;
+GROUP BY mgrs.first_name
+HAVING COUNT(emps.id) >= 4;

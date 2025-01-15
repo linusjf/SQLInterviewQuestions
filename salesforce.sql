@@ -7,8 +7,8 @@ CREATE TABLE sales_performance (
   id INTEGER PRIMARY KEY AUTOINCREMENT
 );
 
-INSERT INTO
-  sales_performance (salesperson, widget_sales, sales_revenue)
+INSERT INTO sales_performance
+  (salesperson, widget_sales, sales_revenue)
 VALUES
   ('Jim', 810, 40500),
   ('Bobby', 661, 33050),
@@ -19,7 +19,5 @@ VALUES
   ('Lisa', 1247, 62350);
 
 SELECT SUM(sales_revenue) AS total_sales
-FROM
-  sales_performance
-WHERE
-  salesperson IN ('Samantha', 'Lisa');
+FROM sales_performance
+WHERE salesperson IN ('Samantha', 'Lisa');

@@ -4,7 +4,5 @@ SELECT
 FROM
   ms_projects AS msp
   INNER JOIN ms_emp_projects AS emp_projs ON msp.id = emp_projs.project_id
-GROUP BY
-  msp.id
-ORDER BY
-  budget_per_employee DESC;
+GROUP BY msp.id
+ORDER BY budget_per_employee DESC;

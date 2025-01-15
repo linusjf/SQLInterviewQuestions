@@ -9,8 +9,8 @@ CREATE TABLE user_dimension (
   acc_id INT
 );
 
-INSERT INTO
-  user_dimension (acc_id)
+INSERT INTO user_dimension
+  (acc_id)
 VALUES
   (101),
   (102),
@@ -23,8 +23,8 @@ CREATE TABLE acc_dimension (
   paying_customer VARCHAR(10)
 );
 
-INSERT INTO
-  acc_dimension (acc_id, paying_customer)
+INSERT INTO acc_dimension
+  (acc_id, paying_customer)
 VALUES
   (101, 'Yes'),
   (102, 'No'),
@@ -38,8 +38,8 @@ CREATE TABLE download_facts (
   downloads INT
 );
 
-INSERT INTO
-  download_facts (download_date, user_id, downloads)
+INSERT INTO download_facts
+  (download_date, user_id, downloads)
 VALUES
   ('2024-10-01', 1, 10),
   ('2024-10-01', 2, 15),
@@ -67,9 +67,6 @@ FROM
   user_dimension
   INNER JOIN acc_dimension ON user_dimension.acc_id = acc_dimension.acc_id
   INNER JOIN download_facts USING (user_id)
-GROUP BY
-  download_facts.download_date
-HAVING
-  unpaid_downloads > paid_downloads
-ORDER BY
-  download_facts.download_date;
+GROUP BY download_facts.download_date
+HAVING unpaid_downloads > paid_downloads
+ORDER BY download_facts.download_date;

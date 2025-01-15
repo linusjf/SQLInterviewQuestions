@@ -10,44 +10,14 @@ CREATE TABLE signups (
   location VARCHAR(100)
 );
 
-INSERT INTO
-  signups (
-    signup_start_date,
-    signup_stop_date,
-    plan_id,
-    location
-  )
+INSERT INTO signups
+  (signup_start_date, signup_stop_date, plan_id, location)
 VALUES
-  (
-    '2020-01-01 10:00:00',
-    '2020-01-01 12:00:00',
-    101,
-    'New York'
-  ),
-  (
-    '2020-01-02 11:00:00',
-    '2020-01-02 13:00:00',
-    102,
-    'Los Angeles'
-  ),
-  (
-    '2020-01-03 10:00:00',
-    '2020-01-03 14:00:00',
-    103,
-    'Chicago'
-  ),
-  (
-    '2020-01-04 09:00:00',
-    '2020-01-04 10:30:00',
-    101,
-    'San Francisco'
-  ),
-  (
-    '2020-01-05 08:00:00',
-    '2020-01-05 11:00:00',
-    102,
-    'New York'
-  );
+  ('2020-01-01 10:00:00', '2020-01-01 12:00:00', 101, 'New York'),
+  ('2020-01-02 11:00:00', '2020-01-02 13:00:00', 102, 'Los Angeles'),
+  ('2020-01-03 10:00:00', '2020-01-03 14:00:00', 103, 'Chicago'),
+  ('2020-01-04 09:00:00', '2020-01-04 10:30:00', 101, 'San Francisco'),
+  ('2020-01-05 08:00:00', '2020-01-05 11:00:00', 102, 'New York');
 
 CREATE TABLE transactions (
   transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,8 +27,8 @@ CREATE TABLE transactions (
   FOREIGN KEY (signup_id) REFERENCES signups (signup_id)
 );
 
-INSERT INTO
-  transactions (signup_id, transaction_start_date, amt)
+INSERT INTO transactions
+  (signup_id, transaction_start_date, amt)
 VALUES
   (1, '2020-01-01 10:30:00', 50.00),
   (1, '2020-01-01 11:00:00', 30.00),
@@ -75,10 +45,8 @@ WITH
       AVG(
         STRFTIME('%s', signup_stop_date) - STRFTIME('%s', signup_start_date)
       ) / 60.0 AS avg_signup_duration_mins
-    FROM
-      signups
-    GROUP BY
-      location
+    FROM signups
+    GROUP BY location
   ),
   avg_amts AS (
     SELECT
@@ -87,19 +55,14 @@ WITH
     FROM
       transactions
       INNER JOIN signups ON transactions.signup_id = signups.signup_id
-    GROUP BY
-      signups.location
+    GROUP BY signups.location
   )
 SELECT
   avg_amts.location,
   avg_signups.avg_signup_duration_mins,
   avg_amts.avg_amt,
-  ROUND(
-    avg_amts.avg_amt / avg_signups.avg_signup_duration_mins,
-    2
-  ) AS ratio
+  ROUND(avg_amts.avg_amt / avg_signups.avg_signup_duration_mins, 2) AS ratio
 FROM
   avg_signups
   INNER JOIN avg_amts ON avg_signups.location = avg_amts.location
-ORDER BY
-  ratio DESC;
+ORDER BY ratio DESC;

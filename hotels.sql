@@ -20,8 +20,8 @@ CREATE TABLE hotel_address (
   lng FLOAT
 );
 
-INSERT INTO
-  hotel_address (
+INSERT INTO hotel_address
+  (
     hotel_address,
     additional_number_of_scoring,
     review_date,
@@ -140,12 +140,9 @@ VALUES
 SELECT
   hotel_name,
   average_score
-FROM
-  hotel_address
-ORDER BY
-  average_score DESC
-LIMIT
-  3;
+FROM hotel_address
+ORDER BY average_score DESC
+LIMIT 3;
 
 WITH
   ranking AS (
@@ -153,16 +150,11 @@ WITH
       hotel_name,
       average_score,
       DENSE_RANK() OVER (
-        ORDER BY
-          average_score DESC
-      ) AS hotel_rank
-    FROM
-      hotel_address
+ORDER BY average_score DESC) AS hotel_rank
+    FROM hotel_address
   )
 SELECT
   hotel_name,
   average_score
-FROM
-  ranking
-WHERE
-  hotel_rank <= 3;
+FROM ranking
+WHERE hotel_rank <= 3;

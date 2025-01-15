@@ -7,8 +7,8 @@ CREATE TABLE user_content (
   content_text VARCHAR(255)
 );
 
-INSERT INTO
-  user_content (customer_id, content_type, content_text)
+INSERT INTO user_content
+  (customer_id, content_type, content_text)
 VALUES
   (2, 'comment', 'hello world! this is a TEST.'),
   (8, 'comment', 'what a great day'),
@@ -26,13 +26,15 @@ WITH
     SELECT
       *,
       '[' || REPLACE(QUOTE(content_text), ' ', ''',''') || ']' AS json_text
-    FROM
-      user_content
+    FROM user_content
   ),
   capitalized AS (
     SELECT
       json_convert.content_text,
-      UPPER(SUBSTRING(word.value, 1, 1)) || SUBSTRING(word.value, 2) AS json_vals
+      UPPER(SUBSTRING(word.value, 1, 1)) || SUBSTRING(
+        word.value,
+        2
+      ) AS json_vals
     FROM
       json_convert,
       JSON_EACH(json_convert.json_text) AS word
@@ -40,7 +42,5 @@ WITH
 SELECT
   content_text,
   GROUP_CONCAT(json_vals, ' ') AS capitalized_text
-FROM
-  capitalized
-GROUP BY
-  content_text;
+FROM capitalized
+GROUP BY content_text;

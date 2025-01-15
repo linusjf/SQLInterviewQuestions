@@ -7,8 +7,7 @@ CREATE TABLE user_purchases (
   day_name VARCHAR(15)
 );
 
-INSERT INTO
-  user_purchases
+INSERT INTO user_purchases
 VALUES
   (1047, '2023-01-01', 288, 'Sunday'),
   (1099, '2023-01-04', 803, 'Wednesday'),

@@ -8,8 +8,8 @@ CREATE TABLE sessions (
   session_date DATETIME
 );
 
-INSERT INTO
-  sessions (user_id, session_date)
+INSERT INTO sessions
+  (user_id, session_date)
 VALUES
   (1, '2024-01-01 00:00:00'),
   (2, '2024-01-02 00:00:00'),
@@ -29,8 +29,8 @@ CREATE TABLE order_summary (
   order_date DATETIME
 );
 
-INSERT INTO
-  order_summary (user_id, order_value, order_date)
+INSERT INTO order_summary
+  (user_id, order_value, order_date)
 VALUES
   (1, 152, '2024-01-01 00:00:00'),
   (2, 485, '2024-01-02 00:00:00'),
@@ -52,11 +52,10 @@ FROM
   sessions
   INNER JOIN order_summary ON sessions.user_id = order_summary.user_id
 WHERE
-  STRFTIME('%J', sessions.session_date) = STRFTIME('%J', order_summary.order_date)
-GROUP BY
-  sessions.user_id,
-  sessions.session_date
-HAVING
-  no_of_orders > 0
-ORDER BY
-  sessions.session_date;
+  STRFTIME('%J', sessions.session_date) = STRFTIME(
+    '%J',
+    order_summary.order_date
+  )
+GROUP BY sessions.user_id, sessions.session_date
+HAVING no_of_orders > 0
+ORDER BY sessions.session_date;

@@ -8,8 +8,8 @@ CREATE TABLE marketing_campaign (
   price INT
 );
 
-INSERT INTO
-  marketing_campaign (user_id, created_at, product_id, quantity, price)
+INSERT INTO marketing_campaign
+  (user_id, created_at, product_id, quantity, price)
 VALUES
   (1, '2020-01-01', 101, 25, 200),
   (2, '2020-01-01', 102, 5, 150),
@@ -31,9 +31,6 @@ SELECT
     WHEN SUM(quantity) BETWEEN 10 AND 19 THEN 'Unsatisfactory'
     ELSE 'Poor'
   END AS ad_performance
-FROM
-  marketing_campaign
-GROUP BY
-  product_id
-ORDER BY
-  units_sold DESC;
+FROM marketing_campaign
+GROUP BY product_id
+ORDER BY units_sold DESC;

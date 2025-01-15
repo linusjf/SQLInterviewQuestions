@@ -11,50 +11,14 @@ CREATE TABLE customers (
   phone_number VARCHAR(20)
 );
 
-INSERT INTO
-  customers (
-    first_name,
-    last_name,
-    city,
-    address,
-    phone_number
-  )
+INSERT INTO customers
+  (first_name, last_name, city, address, phone_number)
 VALUES
-  (
-    'Jill',
-    'Doe',
-    'New York',
-    '123 Main St',
-    '555-1234'
-  ),
-  (
-    'Henry',
-    'Smith',
-    'Los Angeles',
-    '456 Oak Ave',
-    '555-5678'
-  ),
-  (
-    'William',
-    'Johnson',
-    'Chicago',
-    '789 Pine Rd',
-    '555-8765'
-  ),
-  (
-    'Emma',
-    'Daniel',
-    'Houston',
-    '321 Maple Dr',
-    '555-4321'
-  ),
-  (
-    'Charlie',
-    'Davis',
-    'Phoenix',
-    '654 Elm St',
-    '555-6789'
-  );
+  ('Jill', 'Doe', 'New York', '123 Main St', '555-1234'),
+  ('Henry', 'Smith', 'Los Angeles', '456 Oak Ave', '555-5678'),
+  ('William', 'Johnson', 'Chicago', '789 Pine Rd', '555-8765'),
+  ('Emma', 'Daniel', 'Houston', '321 Maple Dr', '555-4321'),
+  ('Charlie', 'Davis', 'Phoenix', '654 Elm St', '555-6789');
 
 CREATE TABLE card_orders (
   order_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,13 +29,8 @@ CREATE TABLE card_orders (
   FOREIGN KEY (cust_id) REFERENCES customers (id)
 );
 
-INSERT INTO
-  card_orders (
-    cust_id,
-    order_date,
-    order_details,
-    total_order_cost
-  )
+INSERT INTO card_orders
+  (cust_id, order_date, order_details, total_order_cost)
 VALUES
   (1, '2024-11-01 10:00:00', 'Electronics', 200),
   (2, '2024-11-02 11:30:00', 'Groceries', 150),
@@ -91,14 +50,9 @@ SELECT
 FROM
   customers
   INNER JOIN card_orders ON customers.id = card_orders.cust_id
-GROUP BY
-  customers.id
-ORDER BY
-  total_transaction_amt DESC
-LIMIT
-  1
-OFFSET
-  2;
+GROUP BY customers.id
+ORDER BY total_transaction_amt DESC
+LIMIT 1 OFFSET 2;
 
 WITH
   ranks AS (
@@ -108,25 +62,20 @@ WITH
       customers.last_name,
       SUM(card_orders.total_order_cost) AS total_transaction_amt,
       DENSE_RANK() OVER (
-        ORDER BY
-          SUM(card_orders.total_order_cost) DESC
+        ORDER BY SUM(card_orders.total_order_cost) DESC
       ) AS rank
     FROM
       customers
       INNER JOIN card_orders ON customers.id = card_orders.cust_id
-    GROUP BY
-      customers.id
-    ORDER BY
-      rank
+    GROUP BY customers.id
+    ORDER BY rank
   )
 SELECT
   id,
   first_name,
   last_name
-FROM
-  ranks
-WHERE
-  rank = 3;
+FROM ranks
+WHERE rank = 3;
 
 SELECT
   customers.id,
@@ -134,17 +83,10 @@ SELECT
   customers.last_name,
   SUM(card_orders.total_order_cost) AS total_transaction_amt,
   DENSE_RANK() OVER (
-    ORDER BY
-      SUM(card_orders.total_order_cost) DESC
-  ) AS rank
+ORDER BY SUM(card_orders.total_order_cost) DESC) AS rank
 FROM
   customers
   INNER JOIN card_orders ON customers.id = card_orders.cust_id
-GROUP BY
-  customers.id
-ORDER BY
-  rank
-LIMIT
-  1
-OFFSET
-  2;
+GROUP BY customers.id
+ORDER BY rank
+LIMIT 1 OFFSET 2;

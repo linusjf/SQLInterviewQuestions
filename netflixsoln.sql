@@ -1,20 +1,18 @@
 /* sql-formatter-disable */
---noqa: disable=all
+-- noqa: disable=all
 .mode column
 
 .print '---BEGINNER---';
---noqa: enable=all
+
+-- noqa: enable=all
 
 /* sql-formatter-enable */
 SELECT
   type,
   COUNT(type) AS count
-FROM
-  netflix_titles
-GROUP BY
-  type
-ORDER BY
-  type;
+FROM netflix_titles
+GROUP BY type
+ORDER BY type;
 
 SELECT
   ROUND(
@@ -25,28 +23,22 @@ SELECT
     ) / COUNT(*),
     2
   ) AS pct_wo_country
-FROM
-  netflix_titles;
+FROM netflix_titles;
 
 /* sql-formatter-disable */
---noqa: disable=all
+-- noqa: disable=all
 .print '---INTERMEDIATE---';
---noqa: enable=all
+-- noqa: enable=all
 /* sql-formatter-enable */
 SELECT
   director,
   COUNT(*) AS no_of_titles,
   MAX(release_year) AS latest_release_in
-FROM
-  netflix_titles
-WHERE
-  director <> ''
-GROUP BY
-  director
-ORDER BY
-  no_of_titles DESC
-LIMIT
-  3;
+FROM netflix_titles
+WHERE director != ''
+GROUP BY director
+ORDER BY no_of_titles DESC
+LIMIT 3;
 
 WITH
   yearly_counts AS (
@@ -54,13 +46,9 @@ WITH
       CAST(STRFTIME('%Y', date_added) AS INTEGER) AS year,
       type,
       COUNT(*) AS count
-    FROM
-      netflix_titles
-    WHERE
-      year BETWEEN 2015 AND 2021
-    GROUP BY
-      year,
-      type
+    FROM netflix_titles
+    WHERE year BETWEEN 2015 AND 2021
+    GROUP BY year, type
   )
 SELECT
   year,
@@ -82,17 +70,14 @@ SELECT
     ) / SUM(count),
     2
   ) AS tv_show_percentage
-FROM
-  yearly_counts
-GROUP BY
-  year
-ORDER BY
-  year;
+FROM yearly_counts
+GROUP BY year
+ORDER BY year;
 
 /* sql-formatter-disable */
---noqa: disable=all
+-- noqa: disable=all
 .print '---ADVANCED---';
---noqa: enable=all
+-- noqa: enable=all
 /* sql-formatter-enable */
 WITH
   genre_months AS (
@@ -103,11 +88,8 @@ WITH
     FROM
       netflix_titles,
       JSON_EACH(listed_in) AS genres
-    WHERE
-      date_added IS NOT NULL
-    GROUP BY
-      month,
-      genre
+    WHERE date_added IS NOT NULL
+    GROUP BY month, genre
   ),
   prev_month_cte AS (
     SELECT
@@ -115,39 +97,32 @@ WITH
       month,
       monthly_count,
       LAG(monthly_count) OVER (
-        PARTITION BY
-          genre
-        ORDER BY
-          month
+        PARTITION BY genre
+        ORDER BY month
       ) AS prev_month_count
-    FROM
-      genre_months
+    FROM genre_months
   ),
   growth_rates AS (
     SELECT
       genre,
       month,
-      1.0 * (monthly_count - prev_month_count) / NULLIF(prev_month_count, 0) AS growth_rate
-    FROM
-      prev_month_cte
+      1.0 * (monthly_count - prev_month_count) / NULLIF(
+        prev_month_count,
+        0
+      ) AS growth_rate
+    FROM prev_month_cte
   ),
   avg_growth_rates AS (
     SELECT
       genre,
       AVG(growth_rate) AS avg_growth_rate
-    FROM
-      growth_rates
-    WHERE
-      growth_rate IS NOT NULL
-    GROUP BY
-      genre
+    FROM growth_rates
+    WHERE growth_rate IS NOT NULL
+    GROUP BY genre
   )
 SELECT
   genre,
   ROUND(100.0 * avg_growth_rate, 2) AS avg_growth_rate
-FROM
-  avg_growth_rates
-ORDER BY
-  avg_growth_rate DESC
-LIMIT
-  5;
+FROM avg_growth_rates
+ORDER BY avg_growth_rate DESC
+LIMIT 5;

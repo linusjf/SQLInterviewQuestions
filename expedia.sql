@@ -20,8 +20,8 @@ CREATE TABLE hotel_reviews (
   lng FLOAT
 );
 
-INSERT INTO
-  hotel_reviews (
+INSERT INTO hotel_reviews
+  (
     hotel_address,
     additional_number_of_scoring,
     review_date,
@@ -103,12 +103,7 @@ SELECT
   hotel_name,
   reviewer_score,
   COUNT(reviewer_score) AS count
-FROM
-  hotel_reviews
-WHERE
-  hotel_name = 'Hotel Arena'
-GROUP BY
-  hotel_name,
-  reviewer_score
-ORDER BY
-  hotel_name;
+FROM hotel_reviews
+WHERE hotel_name = 'Hotel Arena'
+GROUP BY hotel_name, reviewer_score
+ORDER BY hotel_name;

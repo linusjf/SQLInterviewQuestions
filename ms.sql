@@ -2,10 +2,13 @@ DROP TABLE IF EXISTS ms_emp_projects;
 
 DROP TABLE IF EXISTS ms_projects;
 
-CREATE TABLE ms_projects (id INT, title VARCHAR(15), budget INT);
+CREATE TABLE ms_projects (
+  id INT,
+  title VARCHAR(15),
+  budget INT
+);
 
-INSERT INTO
-  ms_projects
+INSERT INTO ms_projects
 VALUES
   (1, 'Project1', 29498),
   (2, 'Project2', 32487),
@@ -28,10 +31,12 @@ VALUES
   (19, 'Project19', 44986),
   (20, 'Project20', 19497);
 
-CREATE TABLE ms_emp_projects (emp_id INT, project_id INT);
+CREATE TABLE ms_emp_projects (
+  emp_id INT,
+  project_id INT
+);
 
-INSERT INTO
-  ms_emp_projects
+INSERT INTO ms_emp_projects
 VALUES
   (10592, 1),
   (10593, 2),
@@ -54,8 +59,7 @@ VALUES
   (10610, 19),
   (10611, 20);
 
-INSERT INTO
-  ms_emp_projects
+INSERT INTO ms_emp_projects
 VALUES
   (10612, 1),
   (10613, 1),

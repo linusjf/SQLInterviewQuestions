@@ -12,8 +12,7 @@ CREATE TABLE airbnb_apartments (
   city VARCHAR(20)
 );
 
-INSERT INTO
-  airbnb_apartments
+INSERT INTO airbnb_apartments
 VALUES
   (0, 'A1', 'Room', 1, 1, 'USA', 'NewYork'),
   (0, 'A2', 'Room', 1, 1, 'USA', 'NewJersey'),
@@ -32,8 +31,7 @@ CREATE TABLE airbnb_hosts (
   age INT
 );
 
-INSERT INTO
-  airbnb_hosts
+INSERT INTO airbnb_hosts
 VALUES
   (0, 'USA', 'M', 28),
   (1, 'USA', 'F', 29),

@@ -19,3 +19,4 @@ CREATE TABLE IF NOT EXISTS "employee_information" (
 --noqa: disable=all
 .import --skip 1 employee.csv employee_information
 /* sql-formatter-enable */
+;

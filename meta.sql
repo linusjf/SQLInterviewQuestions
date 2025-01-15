@@ -17,8 +17,8 @@ CREATE TABLE employee (
   manager_id INT
 );
 
-INSERT INTO
-  employee (
+INSERT INTO employee
+  (
     first_name,
     last_name,
     age,
@@ -145,13 +145,9 @@ WITH
     SELECT
       salary,
       COUNT(salary) AS count_salary
-    FROM
-      employee
-    GROUP BY
-      salary
-    HAVING
-      COUNT(salary) = 1
+    FROM employee
+    GROUP BY salary
+    HAVING COUNT(salary) = 1
   )
 SELECT MAX(salary) AS max_unique_salary
-FROM
-  countsals;
+FROM countsals;

@@ -8,8 +8,8 @@ CREATE TABLE sessions (
   session_date DATETIME
 );
 
-INSERT INTO
-  sessions (user_id, session_date)
+INSERT INTO sessions
+  (user_id, session_date)
 VALUES
   (1, '2024-01-01'),
   (2, '2024-01-02'),
@@ -29,8 +29,8 @@ CREATE TABLE order_summary (
   order_date DATETIME
 );
 
-INSERT INTO
-  order_summary (user_id, order_value, order_date)
+INSERT INTO order_summary
+  (user_id, order_value, order_date)
 VALUES
   (1, 152, '2024-01-01'),
   (2, 485, '2024-01-02'),
@@ -50,14 +50,9 @@ WITH
       order_date,
       COUNT(order_id) AS no_of_orders,
       SUM(order_value) AS total_order_value
-    FROM
-      order_summary
-    GROUP BY
-      user_id,
-      order_date
-    ORDER BY
-      user_id,
-      order_date
+    FROM order_summary
+    GROUP BY user_id, order_date
+    ORDER BY user_id, order_date
   )
 SELECT
   grouped_orders.user_id,
@@ -67,11 +62,6 @@ SELECT
 FROM
   grouped_orders
   INNER JOIN sessions ON grouped_orders.user_id = sessions.user_id
-WHERE
-  sessions.session_date = grouped_orders.order_date
-GROUP BY
-  grouped_orders.user_id,
-  sessions.session_date
-ORDER BY
-  grouped_orders.user_id,
-  sessions.session_date;
+WHERE sessions.session_date = grouped_orders.order_date
+GROUP BY grouped_orders.user_id, sessions.session_date
+ORDER BY grouped_orders.user_id, sessions.session_date;

@@ -7,8 +7,8 @@ CREATE TABLE db_dept (
   department VARCHAR(50)
 );
 
-INSERT INTO
-  db_dept (department)
+INSERT INTO db_dept
+  (department)
 VALUES
   ('engineering'),
   ('human resource'),
@@ -24,8 +24,8 @@ CREATE TABLE db_employee (
   FOREIGN KEY (department_id) REFERENCES db_dept (id)
 );
 
-INSERT INTO
-  db_employee (id, first_name, last_name, salary, department_id)
+INSERT INTO db_employee
+  (id, first_name, last_name, salary, department_id)
 VALUES
   (10306, 'Ashley', 'Li', 28516, 4),
   (10307, 'Joseph', 'Solomon', 19945, 1),

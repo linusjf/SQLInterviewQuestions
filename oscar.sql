@@ -10,44 +10,13 @@ CREATE TABLE nominee_information (
   id INT
 );
 
-INSERT INTO
-  nominee_information
+INSERT INTO nominee_information
 VALUES
-  (
-    'Jennifer Lawrence',
-    'P562566',
-    'Drama',
-    '1990-08-15',
-    755
-  ),
-  (
-    'Jonah Hill',
-    'P418718',
-    'Comedy',
-    '1983-12-20',
-    747
-  ),
-  (
-    'Anne Hathaway',
-    'P292630',
-    'Drama',
-    '1982-11-12',
-    744
-  ),
-  (
-    'Jennifer Hudson',
-    'P454405',
-    'Drama',
-    '1981-09-12',
-    742
-  ),
-  (
-    'Rinko Kikuchi',
-    'P475244',
-    'Drama',
-    '1981-01-06',
-    739
-  );
+  ('Jennifer Lawrence', 'P562566', 'Drama', '1990-08-15', 755),
+  ('Jonah Hill', 'P418718', 'Comedy', '1983-12-20', 747),
+  ('Anne Hathaway', 'P292630', 'Drama', '1982-11-12', 744),
+  ('Jennifer Hudson', 'P454405', 'Drama', '1981-09-12', 742),
+  ('Rinko Kikuchi', 'P475244', 'Drama', '1981-01-06', 739);
 
 CREATE TABLE oscar_nominees (
   year INT,
@@ -58,8 +27,7 @@ CREATE TABLE oscar_nominees (
   id INT
 );
 
-INSERT INTO
-  oscar_nominees
+INSERT INTO oscar_nominees
 VALUES
   (
     2008,
@@ -101,19 +69,5 @@ VALUES
     1,
     718
   ),
-  (
-    2011,
-    'actor in a supporting role',
-    'Jonah Hill',
-    'Moneyball',
-    0,
-    799
-  ),
-  (
-    2006,
-    'actress in a supporting role',
-    'Rinko Kikuchi',
-    'Babel',
-    0,
-    1253
-  );
+  (2011, 'actor in a supporting role', 'Jonah Hill', 'Moneyball', 0, 799),
+  (2006, 'actress in a supporting role', 'Rinko Kikuchi', 'Babel', 0, 1253);
