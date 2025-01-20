@@ -1,4 +1,6 @@
+/* sql-formatter-disable */
 .mode column --noqa
+/* sql-formatter-enable */
 DROP TABLE IF EXISTS netflix_titles;
 
 -- Create the table structure
@@ -17,9 +19,11 @@ CREATE TABLE netflix_titles (
   description TEXT
 );
 
+/* sql-formatter-disable */
 -- noqa: disable=all
 .import --csv --skip 1 netflix.csv netflix_titles
 --noqa: enable=all
+/* sql-formatter-enable */
 -- Convert listed_in contents to json array
 UPDATE netflix_titles
 SET

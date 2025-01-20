@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS "employee_information" (
   "LeaveOrNot" INT
 );
 
+/* sql-formatter-disable */
 .mode csv --noqa
 --noqa: disable=all
 .import --skip 1 employee.csv employee_information
